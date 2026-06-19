@@ -1,0 +1,3870 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="theme-color" content="#0b0f14" media="(prefers-color-scheme: dark)"/>
+  <meta name="theme-color" content="#f4f7fc" media="(prefers-color-scheme: light)"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>پایش پرسنل ایمنی منطقه ۹</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="./assets/icon.svg" />
+  <link rel="apple-touch-icon" href="./assets/icon-192.png" />
+  <meta name="application-name" content="پایش ایمنی" />
+  <script>try{document.documentElement.setAttribute("data-theme", localStorage.getItem("RIG_HSE_THEME_V1") || "dark");}catch(e){}</script>
+  <style>
+  /* ═══════════════════════════════════════════════
+     PAYESH HSE — Visual Redesign
+     Dark-first, teal accent, glassmorphism cards
+  ═══════════════════════════════════════════════ */
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;900&display=swap');
+
+  /* ── TOKENS ─────────────────────────────────── */
+  :root {
+    /* surfaces */
+    --bg:           #07090f;
+    --surface-0:    #0c111b;
+    --surface-1:    #111827;
+    --surface-2:    #161e2e;
+    --surface-3:    #1c2638;
+    --border:       rgba(255,255,255,.07);
+    --border-hover: rgba(94,234,212,.25);
+    --glass-bg:     rgba(17,24,39,.7);
+    --glass-border: rgba(255,255,255,.08);
+
+    /* text */
+    --text:         #e2e8f4;
+    --text-muted:   #8899b4;
+    --text-faint:   #4a5a72;
+
+    /* accent */
+    --accent:       #5eead4;
+    --accent-dim:   rgba(94,234,212,.12);
+    --accent-glow:  rgba(94,234,212,.2);
+
+    /* semantic */
+    --ok:           #34d399;
+    --ok-dim:       rgba(52,211,153,.12);
+    --warn:         #fbbf24;
+    --warn-dim:     rgba(251,191,36,.12);
+    --bad:          #fb7185;
+    --bad-dim:      rgba(251,113,133,.12);
+
+    /* field */
+    --field-bg:     rgba(7,9,15,.6);
+    --field-border: rgba(255,255,255,.1);
+
+    /* layout */
+    --header-h:  58px;
+    --nav-h:     64px;
+    --r-xs:      8px;
+    --r-sm:      12px;
+    --r-md:      16px;
+    --r-lg:      20px;
+    --r-full:    999px;
+
+    /* shadows */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.4), 0 1px 2px rgba(0,0,0,.3);
+    --shadow-md: 0 4px 16px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.3);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.6), 0 4px 12px rgba(0,0,0,.4);
+    --shadow-accent: 0 0 20px rgba(94,234,212,.15), 0 4px 16px rgba(0,0,0,.4);
+
+    /* transitions */
+    --t-fast: 120ms cubic-bezier(.16,1,.3,1);
+    --t:      200ms cubic-bezier(.16,1,.3,1);
+    --t-slow: 350ms cubic-bezier(.16,1,.3,1);
+  }
+
+  /* LIGHT MODE */
+  :root[data-theme="light"] {
+    --bg:           #f0f4fb;
+    --surface-0:    #f7f9fe;
+    --surface-1:    #ffffff;
+    --surface-2:    #f3f6fc;
+    --surface-3:    #eaeff8;
+    --border:       rgba(0,0,0,.08);
+    --border-hover: rgba(15,118,110,.3);
+    --glass-bg:     rgba(255,255,255,.8);
+    --glass-border: rgba(0,0,0,.07);
+    --text:         #0f1d30;
+    --text-muted:   #4e6280;
+    --text-faint:   #9aaec4;
+    --accent:       #0f766e;
+    --accent-dim:   rgba(15,118,110,.1);
+    --accent-glow:  rgba(15,118,110,.15);
+    --ok:           #059669;
+    --ok-dim:       rgba(5,150,105,.1);
+    --warn:         #d97706;
+    --warn-dim:     rgba(217,119,6,.1);
+    --bad:          #e11d48;
+    --bad-dim:      rgba(225,29,72,.1);
+    --field-bg:     rgba(255,255,255,.9);
+    --field-border: rgba(0,0,0,.12);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+    --shadow-md: 0 4px 16px rgba(0,0,0,.1), 0 2px 6px rgba(0,0,0,.06);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.14), 0 4px 12px rgba(0,0,0,.08);
+    --shadow-accent: 0 0 20px rgba(15,118,110,.12), 0 4px 16px rgba(0,0,0,.08);
+  }
+
+  /* ── RESET ───────────────────────────────────── */
+  *, *::before, *::after { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html {
+    scroll-behavior:smooth;
+    -webkit-text-size-adjust:100%;
+    scroll-padding-top:calc(var(--header-h) + 8px);
+    hanging-punctuation:first last;
+  }
+  body {
+    margin:0; padding:0;
+    font-family:'Vazirmatn', ui-sans-serif, system-ui, "Segoe UI", Tahoma, Arial;
+    font-size:15px; line-height:1.65;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(94,234,212,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 110%, rgba(59,130,246,.05) 0%, transparent 60%);
+    background-attachment:fixed;
+    color:var(--text);
+    min-height:100dvh;
+  }
+  :root[data-theme="light"] body {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(15,118,110,.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 110%, rgba(59,130,246,.04) 0%, transparent 60%);
+  }
+
+  /* ── HEADER ─────────────────────────────────── */
+  header {
+    position:sticky; top:0; z-index:200;
+    height:var(--header-h);
+    background:var(--glass-bg);
+    backdrop-filter:blur(20px) saturate(200%);
+    -webkit-backdrop-filter:blur(20px) saturate(200%);
+    border-bottom:1px solid var(--glass-border);
+  }
+  .header-inner {
+    max-width:1200px; margin:0 auto;
+    height:100%;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 18px; gap:12px;
+  }
+  .header-logo {
+    display:flex; align-items:center; gap:10px; min-width:0; flex:1;
+  }
+  .header-logo-icon {
+    width:32px; height:32px; flex-shrink:0;
+    background:linear-gradient(135deg, var(--accent), rgba(94,234,212,.5));
+    border-radius:var(--r-xs);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:var(--shadow-accent);
+  }
+  :root[data-theme="light"] .header-logo-icon {
+    background:linear-gradient(135deg, var(--accent), rgba(15,118,110,.5));
+  }
+  .header-logo-icon svg { width:18px; height:18px; stroke:#fff; }
+  .header-inner h1 {
+    font-size:15px; font-weight:700; margin:0; letter-spacing:-.01em;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .title-actions { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+  .badge {
+    padding:5px 10px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:var(--r-full);
+    color:var(--text-muted); font-size:11px; white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+  @media(max-width:520px){
+    .badge { display:none; }
+    .header-inner h1 { font-size:14px; }
+  }
+
+  /* THEME TOGGLE BUTTON */
+  #themeToggleBtn {
+    width:36px; height:36px; padding:0;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:var(--r-xs);
+    color:var(--text-muted);
+    cursor:pointer;
+    transition:background var(--t), color var(--t), border-color var(--t);
+    min-height:unset;
+  }
+  #themeToggleBtn:hover { background:var(--surface-3); color:var(--accent); border-color:var(--border-hover); }
+
+  /* ── TOP NAV (Desktop) ───────────────────────── */
+  .top-nav {
+    display:flex; gap:6px; flex-wrap:wrap;
+    padding:10px 18px;
+    max-width:1200px; margin:0 auto;
+    background:var(--glass-bg);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--glass-border);
+  }
+  .top-nav button {
+    background:transparent; color:var(--text-muted);
+    border:1px solid transparent;
+    border-radius:var(--r-xs);
+    padding:7px 14px; cursor:pointer;
+    font-size:13px; font-family:inherit; font-weight:500;
+    transition:color var(--t), border-color var(--t), background var(--t);
+  }
+  .top-nav button:hover { color:var(--text); background:var(--surface-2); border-color:var(--border); }
+  .top-nav button.active {
+    color:var(--accent); background:var(--accent-dim);
+    border-color:rgba(94,234,212,.2);
+  }
+  :root[data-theme="light"] .top-nav button.active {
+    border-color:rgba(15,118,110,.25);
+  }
+  @media(max-width:768px){ .top-nav { display:none; } }
+
+  /* ── BOTTOM NAV (Mobile) ──────────────────────── */
+  .bottom-nav {
+    display:none;
+    position:fixed; bottom:0; left:0; right:0; z-index:200;
+    background:var(--glass-bg);
+    backdrop-filter:blur(20px) saturate(200%);
+    -webkit-backdrop-filter:blur(20px) saturate(200%);
+    border-top:1px solid var(--glass-border);
+    padding-bottom:env(safe-area-inset-bottom,0);
+  }
+  .bottom-nav-inner {
+    display:flex; height:var(--nav-h);
+    overflow-x:auto; overflow-y:hidden;
+    scrollbar-width:none; -ms-overflow-style:none;
+  }
+  .bottom-nav-inner::-webkit-scrollbar { display:none; }
+  .bottom-nav-inner button {
+    flex:0 0 auto;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:4px;
+    background:transparent; border:none;
+    color:var(--text-faint);
+    padding:0 16px;
+    font-size:10px; font-family:inherit; font-weight:500;
+    min-width:68px; cursor:pointer;
+    transition:color var(--t-fast);
+    white-space:nowrap; position:relative;
+  }
+  .bottom-nav-inner button::before {
+    content:'';
+    position:absolute; top:0; left:50%; transform:translateX(-50%);
+    width:0; height:2px;
+    background:var(--accent);
+    border-radius:0 0 2px 2px;
+    transition:width var(--t);
+  }
+  .bottom-nav-inner button.active { color:var(--accent); }
+  .bottom-nav-inner button.active::before { width:28px; }
+  @media(max-width:768px){
+    .bottom-nav { display:block; }
+    main { padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0) + 20px) !important; }
+  }
+
+  /* ── LAYOUT ──────────────────────────────────── */
+  .wrap { max-width:1200px; margin:0 auto; padding:0 16px; }
+  main { padding:18px 0 40px; }
+  .grid { display:grid; gap:14px; }
+  @media(min-width:980px){ .grid.cols2 { grid-template-columns:1.05fr .95fr; } }
+  @media(min-width:600px) and (max-width:979px){ .grid.cols2 { grid-template-columns:1fr; } }
+
+  /* ── CARD ────────────────────────────────────── */
+  .card {
+    background:var(--glass-bg);
+    border:1px solid var(--glass-border);
+    border-radius:var(--r-md);
+    padding:18px;
+    box-shadow:var(--shadow-sm);
+    transition:border-color var(--t), box-shadow var(--t);
+    position:relative; overflow:hidden;
+  }
+  .card::before {
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+    pointer-events:none;
+  }
+  .card h2 {
+    margin:0 0 14px;
+    font-size:14px; font-weight:700;
+    color:var(--text);
+    display:flex; align-items:center; gap:8px;
+    letter-spacing:-.01em;
+  }
+  .card h2::before {
+    content:'';
+    display:inline-block; width:3px; height:14px;
+    background:var(--accent);
+    border-radius:2px;
+    flex-shrink:0;
+  }
+
+  /* ── ROWS / GRID ─────────────────────────────── */
+  .row  { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+  @media(max-width:520px){
+    .row  { grid-template-columns:1fr; gap:10px; }
+    .row3 { grid-template-columns:1fr 1fr 1fr; gap:6px; }
+  }
+
+  /* ── FIELD ───────────────────────────────────── */
+  .field label {
+    display:block;
+    color:var(--text-muted); font-size:12px; font-weight:600;
+    margin:0 0 6px;
+    letter-spacing:.02em; text-transform:none;
+  }
+  input, select, textarea {
+    width:100%;
+    background:var(--field-bg);
+    color:var(--text);
+    border:1px solid var(--field-border);
+    border-radius:var(--r-xs);
+    padding:11px 13px;
+    font-size:15px; font-family:inherit;
+    outline:none;
+    transition:border-color var(--t), box-shadow var(--t), background var(--t);
+    -webkit-appearance:none; appearance:none;
+  }
+  input::placeholder, textarea::placeholder { color:var(--text-faint); }
+  input:focus, select:focus, textarea:focus {
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-glow);
+    background:var(--field-bg);
+  }
+  textarea { min-height:80px; resize:vertical; }
+  select {
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238899b4' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:left 12px center;
+    padding-left:32px;
+    cursor:pointer;
+  }
+  :root[data-theme="light"] select {
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234e6280' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  @media(max-width:768px){
+    input, select, textarea { font-size:16px !important; }
+  }
+
+  /* ── BUTTONS ─────────────────────────────────── */
+  .actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  @media(max-width:520px){
+    .actions { flex-direction:column; }
+    .actions .btn { width:100%; justify-content:center; }
+  }
+  .btn {
+    display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    border:1px solid var(--border);
+    background:var(--surface-2);
+    color:var(--text);
+    padding:10px 18px;
+    border-radius:var(--r-xs);
+    cursor:pointer; font-size:14px; font-family:inherit; font-weight:600;
+    min-height:44px;
+    transition:background var(--t), border-color var(--t), transform var(--t-fast), box-shadow var(--t);
+    -webkit-appearance:none; position:relative; overflow:hidden;
+  }
+  .btn::after {
+    content:'';
+    position:absolute; inset:0;
+    background:rgba(255,255,255,0);
+    transition:background var(--t-fast);
+    pointer-events:none;
+  }
+  .btn:hover { border-color:var(--border-hover); box-shadow:var(--shadow-sm); }
+  .btn:hover::after { background:rgba(255,255,255,.03); }
+  .btn:active { transform:scale(.97); }
+  .btn.primary {
+    background:var(--accent-dim);
+    border-color:rgba(94,234,212,.3);
+    color:var(--accent);
+    box-shadow:0 0 0 0 var(--accent-glow);
+  }
+  .btn.primary:hover {
+    background:rgba(94,234,212,.18);
+    box-shadow:var(--shadow-accent);
+  }
+  :root[data-theme="light"] .btn.primary {
+    background:rgba(15,118,110,.08);
+    border-color:rgba(15,118,110,.3);
+  }
+  .btn.danger {
+    background:var(--bad-dim);
+    border-color:rgba(251,113,133,.25);
+    color:var(--bad);
+  }
+  .btn.danger:hover { background:rgba(251,113,133,.2); border-color:rgba(251,113,133,.5); }
+  .btn.ghost { background:transparent; border-color:transparent; }
+  .btn.ghost:hover { background:var(--surface-2); border-color:var(--border); }
+
+  /* ── DIVIDER ─────────────────────────────────── */
+  .hr {
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+    margin:16px 0;
+    border:none;
+  }
+
+  /* ── TYPOGRAPHY HELPERS ──────────────────────── */
+  .hint { color:var(--text-muted); font-size:12px; line-height:1.7; margin:6px 0 0; }
+  .small { font-size:12px; color:var(--text-muted); }
+  .inline { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+
+  /* ── TABLE ───────────────────────────────────── */
+  .table-wrap {
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+    border-radius:var(--r-sm);
+    border:1px solid var(--border);
+  }
+  table {
+    width:100%; border-collapse:collapse;
+    font-size:13px; min-width:400px;
+  }
+  thead tr {
+    background:var(--surface-2);
+  }
+  th {
+    color:var(--text-muted); font-weight:700; font-size:11px;
+    padding:10px 10px; text-align:right;
+    letter-spacing:.03em;
+    border-bottom:1px solid var(--border);
+    white-space:nowrap;
+  }
+  td {
+    padding:10px 10px; text-align:right;
+    border-bottom:1px solid rgba(255,255,255,.04);
+    font-size:13px;
+    white-space:nowrap;
+  }
+  :root[data-theme="light"] td { border-bottom:1px solid rgba(0,0,0,.05); }
+  tbody tr { transition:background var(--t-fast); }
+  tbody tr:hover { background:rgba(255,255,255,.03); }
+  :root[data-theme="light"] tbody tr:hover { background:rgba(0,0,0,.025); }
+  tbody tr:last-child td { border-bottom:none; }
+  @media(max-width:520px){ th, td { padding:9px 8px; font-size:12px; } }
+
+  .scroll-hint {
+    font-size:11px; color:var(--text-faint); text-align:left;
+    margin:0 0 4px; padding:0 2px; display:none;
+  }
+  @media(max-width:600px){ .scroll-hint { display:block; } }
+
+  /* ── PILLS ───────────────────────────────────── */
+  .pill {
+    display:inline-flex; align-items:center; gap:5px;
+    padding:4px 10px; border-radius:var(--r-full);
+    border:1px solid var(--border);
+    background:var(--surface-2);
+    color:var(--text-muted); font-size:12px; font-weight:500;
+  }
+  .ok  { border-color:rgba(52,211,153,.3); background:var(--ok-dim);   color:var(--ok);  }
+  .bad { border-color:rgba(251,113,133,.3); background:var(--bad-dim); color:var(--bad); }
+  .warn{ border-color:rgba(251,191,36,.3);  background:var(--warn-dim); color:var(--warn);}
+
+  /* ── DUP HIGHLIGHT ───────────────────────────── */
+  .dup { outline:2px solid rgba(251,191,36,.4); box-shadow:0 0 0 3px rgba(251,191,36,.08) inset; border-radius:var(--r-xs); }
+
+  /* ── NESTED CARDS (training/drill rows) ──────── */
+  #trainings .card, #drills .card, #requests .card, #letters .card {
+    background:var(--surface-0);
+    border-radius:var(--r-sm);
+    padding:12px;
+    margin-bottom:10px;
+    border-color:var(--border);
+  }
+  #trainings .card::before, #drills .card::before,
+  #requests .card::before, #letters .card::before { display:none; }
+
+  /* ── PRINT AREA ──────────────────────────────── */
+  .print-area {
+    background:white; color:#111;
+    padding:18px; border-radius:var(--r-sm);
+    overflow-x:auto;
+  }
+  .print-area h3 { margin:0 0 8px; }
+  .print-area .muted { color:#555; }
+  .print-area table { font-size:12px; min-width:0; border:none; }
+  .print-area thead tr { background:#f5f5f5; }
+  .print-area th { border-bottom:2px solid #ddd; padding:7px; color:#444; }
+  .print-area td { border-bottom:1px solid #eee; padding:7px; }
+  .print-area .table-wrap { border:1px solid #ddd; }
+  .sig {
+    margin-top:20px; display:flex; justify-content:space-between;
+    gap:20px; flex-wrap:wrap;
+  }
+  .sig > div {
+    flex:1; min-width:120px;
+    border-top:1px solid #ccc; padding-top:8px;
+    text-align:center; font-size:12px; color:#555;
+  }
+
+  /* ── SECTION PILLS (tab header) ─────────────── */
+  .tab-header {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:14px; flex-wrap:wrap; gap:8px;
+  }
+  .tab-header h2 { margin:0; font-size:16px; font-weight:800; }
+
+  /* ── EMPTY STATE ─────────────────────────────── */
+  .empty-state {
+    text-align:center; padding:40px 16px; color:var(--text-muted);
+  }
+
+  /* ── SNAP BOX ────────────────────────────────── */
+  #snapBox > div { font-size:13px; }
+
+  /* ── FOCUS RING ──────────────────────────────── */
+  :focus-visible {
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+    border-radius:var(--r-xs);
+  }
+
+  /* ── SELECTION ───────────────────────────────── */
+  ::selection { background:var(--accent-dim); color:var(--text); }
+
+  /* ── SCROLLBAR (webkit) ──────────────────────── */
+  ::-webkit-scrollbar { width:5px; height:5px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:var(--r-full); }
+  ::-webkit-scrollbar-thumb:hover { background:var(--text-faint); }
+
+  /* ── PRINT ───────────────────────────────────── */
+  @media print {
+    header, .top-nav, .bottom-nav, .no-print { display:none !important; }
+    body { background:white; padding:0; }
+    .wrap { max-width:none; padding:0; }
+    .card { border:none; background:transparent; padding:0; box-shadow:none; }
+    .card::before { display:none; }
+    .print-area { border-radius:0; padding:0; }
+    main { padding-bottom:0 !important; }
+  }
+
+  /* ── REDUCED MOTION ──────────────────────────── */
+  @media(prefers-reduced-motion:reduce){
+    *, *::before, *::after {
+      animation-duration:.01ms !important;
+      transition-duration:.01ms !important;
+    }
+  }
+
+  /* ── EXTRA VISUAL POLISH ─────────────────────── */
+
+  /* گرادیان نرم پشت active تب در bottom nav */
+  .bottom-nav-inner button.active {
+    background:radial-gradient(ellipse at 50% 0%, var(--accent-glow) 0%, transparent 70%);
+  }
+
+  /* حاشیه سبز سمت راست card‌های ثبت عملکرد */
+  #tabEntry .card:first-child {
+    border-right:2px solid rgba(94,234,212,.3);
+  }
+
+  /* section separator با عنوان */
+  .section-label {
+    font-size:11px; font-weight:700; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--text-faint);
+    padding:0 2px; margin:18px 0 8px;
+  }
+
+  /* status dot */
+  .dot {
+    display:inline-block; width:7px; height:7px;
+    border-radius:50%; flex-shrink:0;
+  }
+  .dot-ok   { background:var(--ok);   box-shadow:0 0 4px var(--ok); }
+  .dot-warn { background:var(--warn); box-shadow:0 0 4px var(--warn); }
+  .dot-bad  { background:var(--bad);  box-shadow:0 0 4px var(--bad); }
+
+  /* heading داخل tab با نوار gradient زیرین */
+  .tab > .wrap > h2, .tab-title {
+    font-size:18px; font-weight:800;
+    margin:0 0 16px;
+    background:linear-gradient(90deg, var(--text) 60%, var(--text-muted));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+
+  /* کارت‌های آمار/خلاصه */
+  .stat-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+    gap:10px; margin-bottom:16px;
+  }
+  .stat-card {
+    background:var(--surface-1);
+    border:1px solid var(--border);
+    border-radius:var(--r-sm);
+    padding:14px;
+    text-align:center;
+  }
+  .stat-card .stat-val {
+    font-size:22px; font-weight:800;
+    color:var(--accent); line-height:1.2;
+    font-variant-numeric:tabular-nums;
+  }
+  .stat-card .stat-label {
+    font-size:11px; color:var(--text-muted);
+    margin-top:4px;
+  }
+
+  /* بهبود کادر پرینت */
+  .print-area {
+    border:1px solid var(--border);
+    box-shadow:var(--shadow-sm);
+  }
+
+  /* inline checkbox ظاهر بهتر */
+  input[type="checkbox"] {
+    width:18px; height:18px;
+    accent-color:var(--accent);
+    cursor:pointer;
+  }
+
+  /* scrollbar آرام‌تر */
+  @media(max-width:768px){
+    ::-webkit-scrollbar { width:3px; height:3px; }
+  }
+
+  /* انیمیشن fade-in برای تب‌ها */
+  .tab { animation:tabIn .2s ease both; }
+  @keyframes tabIn {
+    from { opacity:0; transform:translateY(6px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @media(prefers-reduced-motion:reduce){
+    .tab { animation:none; }
+  }
+
+  /* لوگو glow در hover */
+  .header-logo-icon {
+    transition:box-shadow var(--t);
+  }
+  header:hover .header-logo-icon {
+    box-shadow: 0 0 14px rgba(94,234,212,.35), var(--shadow-sm);
+  }
+
+</style>
+</head>
+<body>
+<div id="errPanel" style="display:none; position:fixed; left:12px; right:12px; top:12px; z-index:99999; background:#3b0f13; color:#fff; padding:12px 14px; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.35); font-family:system-ui, sans-serif;">
+  <div style="display:flex; justify-content:space-between; gap:12px; align-items:flex-start;">
+    <div>
+      <div style="font-weight:800; margin-bottom:4px;">خطای برنامه</div>
+      <div id="errText" style="white-space:pre-wrap; font-size:12px; line-height:1.5;">—</div>
+    </div>
+    <button id="errClose" style="background:rgba(255,255,255,.15); color:#fff; border:0; border-radius:10px; padding:6px 10px; cursor:pointer;">بستن</button>
+  </div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="header-logo">
+      <div class="header-logo-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+          <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.4C17.25 22.15 21 17.25 21 12V7L12 2z" stroke="white"/>
+          <path d="M9 12l2 2 4-4" stroke="white"/>
+        </svg>
+      </div>
+      <h1>پایش پرسنل ایمنی</h1>
+    </div>
+    <div class="title-actions no-print">
+      <button class="btn ghost" id="themeToggleBtn" type="button" style="padding:8px 10px; min-height:36px; font-size:13px;">🌙</button>
+      <div class="badge" id="dbStatus">…</div>
+    </div>
+  </div>
+</header>
+
+<!-- Desktop top nav -->
+<nav class="top-nav no-print">
+  <button data-tab="tabRig" class="active">دکل‌ها</button>
+  <button data-tab="tabSchedule">برنامه اقماری</button>
+  <button data-tab="tabEntry">ثبت عملکرد</button>
+  <button data-tab="tabReport">گزارش</button>
+  <button data-tab="tabInc">حوادث</button>
+  <button data-tab="tabFollow">پیگیری‌ها</button>
+  <button data-tab="tabLeave">مرخصی‌ها</button>
+  <button data-tab="tabBackup">بکاپ</button>
+</nav>
+
+<!-- Mobile bottom nav -->
+<nav class="bottom-nav no-print" aria-label="ناوبری اصلی">
+  <div class="bottom-nav-inner">
+    <button data-tab="tabRig" class="active">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      دکل‌ها
+    </button>
+    <button data-tab="tabSchedule">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      برنامه
+    </button>
+    <button data-tab="tabEntry">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      ثبت
+    </button>
+    <button data-tab="tabReport">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      گزارش
+    </button>
+    <button data-tab="tabInc">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      حوادث
+    </button>
+    <button data-tab="tabFollow">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.86a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+      پیگیری
+    </button>
+    <button data-tab="tabLeave">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      مرخصی
+    </button>
+    <button data-tab="tabBackup">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      بکاپ
+    </button>
+  </div>
+</nav>
+
+<main class="wrap" style="padding-top:20px;">
+  <section id="tabRig" class="tab">
+    <div class="grid cols2">
+      <div class="card">
+        <h2>انتخاب دکل</h2>
+        <div class="row">
+          <div class="field">
+            <label>دکل</label>
+            <select id="rigSelect"></select>
+          </div>
+          <div class="field">
+            <label>عملیات حفاری (۴ گانه)</label>
+            <select id="rigOp">
+              <option value="">— انتخاب —</option>
+              <option>عملیات ۱</option>
+              <option>عملیات ۲</option>
+              <option>عملیات ۳</option>
+              <option>عملیات ۴</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>لوکیشن این دکل</label>
+            <input id="rigLoc" placeholder="مثلاً: اهواز - میدان X - موقعیت Y" />
+          </div>
+          <div class="field">
+            <label>توضیح کوتاه این دکل</label>
+            <input id="rigNote" placeholder="اختیاری" />
+          </div>
+        </div>
+
+        <div class="hr"></div>
+        <h2>مدیریت دکل‌ها</h2>
+        <div class="row">
+          <div class="field">
+            <label>نام دکل انتخاب‌شده</label>
+            <input id="rigNameEdit" placeholder="مثلاً Rig59 یا دکل 59" />
+          </div>
+          <div class="field">
+            <label>نام دکل جدید</label>
+            <input id="newRigName" placeholder="مثلاً 78 یا Rig78" />
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn" id="renameRigBtn">تغییر نام دکل</button>
+          <button class="btn primary" id="addRigBtn">افزودن دکل</button>
+          <button class="btn danger" id="deleteRigBtn">حذف دکل انتخاب‌شده</button>
+        </div>
+        <p class="hint">
+          نام دکل‌ها آزاد است. اگر فقط عدد وارد کنی، برنامه آن را به شکل Rig59 ذخیره می‌کند. هنگام تغییر نام، برنامه و رکوردهای همان دکل هم با نام جدید هماهنگ می‌شوند.
+        </p>
+
+        <div class="hr"></div>
+        <h2>مدیریت‌ها (برای هدر گزارش و برنامه اقماری)</h2>
+        <div class="row">
+          <div class="field">
+            <label>رئیس دستگاه ۱</label>
+            <input id="rigChiefTool" placeholder="نام" />
+          </div>
+          <div class="field">
+            <label>رئیس دستگاه ۲</label>
+            <input id="rigChiefTool2" placeholder="نام" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>رئیس منطقه</label>
+            <input id="rigRegionChief" placeholder="نام" />
+          </div>
+          <div class="field">
+            <label>رئیس منطقه خدمات</label>
+            <input id="rigServiceRegionChief" placeholder="نام" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>شروع رئیس دستگاه ۱ (روز اول حضور)</label>
+            <div class="row3" id="chiefTool1Date"></div>
+          </div>
+          <div class="field">
+            <label>شروع رئیس دستگاه ۲ (روز اول حضور)</label>
+            <div class="row3" id="chiefTool2Date"></div>
+          </div>
+        </div>
+        <div class="row" style="direction:ltr;">
+          <div class="field" style="direction:rtl;">
+            <label>رئیس عملیات</label>
+            <input id="rigChiefOps" placeholder="نام" />
+          </div>
+          <div class="field" style="direction:rtl;">
+            <label>مدیر عملیات</label>
+            <input id="rigManagerOps" placeholder="نام" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>تاریخ آخرین بروزرسانی (اختیاری)</label>
+            <div class="inline">
+              <span class="small">شمسی:</span>
+              <span id="rigUpdatedJ">—</span>
+            </div>
+          </div>
+          <div></div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="saveRigBtn">ذخیره اطلاعات دکل</button>
+          <button class="btn" id="resetRigBtn">بازگردانی فرم از داده ذخیره‌شده</button>
+        </div>
+        <p class="hint">
+          این بخش برای چند سال ثابت می‌ماند. هر بار که تغییر دادی، هدر گزارش‌ها هم بروزرسانی می‌شود.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>کارشناسان ایمنی (اصلی) برای این دکل</h2>
+        <p class="hint">دو کارشناس اصلی که به‌صورت ۱۴/۱۴ جابجا می‌شوند. جایگزین‌ها را در تب «برنامه اقماری» تعریف کن.</p>
+
+        <div class="row">
+          <div class="field">
+            <label>کارشناس A (نام)</label>
+            <input id="pAName" placeholder="مثلاً: علی رضایی" />
+          </div>
+          <div class="field">
+            <label>شروع کارشناس A (روز اول حضور)</label>
+            <div class="row3" id="pADate"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>کارشناس B (نام)</label>
+            <input id="pBName" placeholder="مثلاً: مهدی موسوی" />
+          </div>
+          <div class="field">
+            <label>شروع کارشناس B (روز اول حضور)</label>
+            <div class="row3" id="pBDate"></div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="savePeopleBtn">ذخیره کارشناسان</button>
+        </div>
+
+        <div class="hr"></div>
+        <div class="inline">
+          <span class="pill">یادآوری</span>
+          <span class="hint">برنامه «یک‌ساله» از تاریخ شروعی که در تب برنامه انتخاب می‌کنی تولید می‌شود (الزاماً پایان سال شمسی نیست).</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tabSchedule" class="tab" style="display:none;">
+    <div class="grid cols2">
+      <div class="card">
+        <h2>تولید برنامه ۱۴/۱۴ برای یک سال</h2>
+        <div class="row">
+          <div class="field">
+            <label>دکل</label>
+            <select id="schRig"></select>
+          </div>
+          <div class="field">
+            <label>از چه تاریخی یک سال را حساب کنم؟ (روز شروع دوره)</label>
+            <div class="row3" id="schStart"></div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn primary" id="genScheduleBtn">تولید/بروزرسانی برنامه</button>
+          <button class="btn danger" id="clearScheduleBtn">حذف برنامه‌ی این دکل (فقط برنامه، نه عملکرد)</button>
+        </div>
+        <p class="hint">
+          برنامه به شکل «دوره‌های ۱۴ روزه» ذخیره می‌شود تا گزارش‌گیری دقیق باشد.
+        </p>
+
+        <div class="hr"></div>
+        <h2>تعریف جایگزین (Override)</h2>
+        <p class="hint">
+          اگر کسی برای ۷ یا ۱۴ روز جایگزین شد، اینجا ثبت کن تا برنامه آن بازه را با نام جایگزین نشان دهد.
+        </p>
+        <div class="row">
+          <div class="field">
+            <label>نام جایگزین</label>
+            <input id="ovName" placeholder="مثلاً: حسین احمدی" />
+          </div>
+          <div class="field">
+            <label>بازه جایگزینی - از تاریخ</label>
+            <div class="row3" id="ovFrom"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>بازه جایگزینی - تا تاریخ</label>
+            <div class="row3" id="ovTo"></div>
+          </div>
+          <div class="field">
+            <label>جایگزینِ کدام نفر؟</label>
+            <select id="ovFor">
+              <option value="A">جایگزین کارشناس A</option>
+              <option value="B">جایگزین کارشناس B</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>نوع (دلیل)</label>
+            <select id="ovReason">
+              <option value="مرخصی">مرخصی</option>
+              <option value="ماموریت">ماموریت</option>
+              <option value="جابجایی/جایگزینی">جابجایی/جایگزینی</option>
+              <option value="سایر">سایر</option>
+            </select>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn" id="addOverrideBtn">ثبت جایگزین</button>
+        </div>
+        <div id="overrideList" class="small"></div>
+      </div>
+
+      <div class="card">
+        <h2>نمایش برنامه تولیدشده (خلاصه)</h2>
+        <div class="inline">
+          <span class="pill ok" id="schInfoPill">—</span>
+          <span class="small" id="schInfo">—</span>
+        </div>
+        <div class="hr"></div>
+        <div class="table-wrap" style="max-height:380px;"><table id="schTable">
+            <thead>
+              <tr>
+                <th>شماره دوره</th>
+                <th>از</th>
+                <th>تا</th>
+                <th>نفر شیفت / رئیس دستگاه</th>
+                <th>نوع</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="hint">
+          نوع = اصلی یا جایگزین. اگر در بازه Override ثبت کرده باشی، نام جایگزین نمایش داده می‌شود.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tabEntry" class="tab" style="display:none;">
+    <div class="grid cols2">
+      <div class="card">
+        <h2>انتخاب دوره برای ثبت عملکرد</h2>
+        <div class="row">
+          <div class="field">
+            <label>دکل</label>
+            <select id="enRig"></select>
+          </div>
+          <div class="field">
+            <label>دوره ۱۴ روزه</label>
+            <select id="enPeriod"></select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>نفر شیفت (خودکار از برنامه)</label>
+            <input id="enPerson" disabled />
+          </div>
+          <div class="field">
+            <label>نوع نفر</label>
+            <input id="enPersonType" disabled />
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <h2>آموزش‌ها (چند ردیف)</h2>
+        <div id="trainings"></div>
+        <div class="actions">
+          <button class="btn" id="addTrainingBtn">+ افزودن آموزش</button>
+        </div>
+
+        <div class="hr"></div>
+
+        <h2>گزارش‌های ماهانه (برای این ماه/چرخه)</h2>
+        <p class="hint">
+          این گزینه‌ها ماهانه هستند. ثبت می‌شود که «در همین دوره» توسط چه کسی انجام شده.
+        </p>
+        <div class="row">
+          <div class="field">
+            <label>گزارش دفع پسماند</label>
+            <select id="wasteYes">
+              <option value="">—</option>
+              <option value="yes">بله</option>
+              <option value="no">خیر</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>شماره نامه دفع پسماند</label>
+            <input id="wasteNo" placeholder="مثلاً 5467" inputmode="numeric"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>گزارش آب مصرفی</label>
+            <select id="waterYes">
+              <option value="">—</option>
+              <option value="yes">بله</option>
+              <option value="no">خیر</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>شماره نامه آب مصرفی</label>
+            <input id="waterNo" placeholder="مثلاً 120045" inputmode="numeric"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>کمیته حفاظت فنی</label>
+            <select id="committeeYes">
+              <option value="">—</option>
+              <option value="yes">بله</option>
+              <option value="no">خیر</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>شماره نامه کمیته</label>
+            <input id="committeeNo" placeholder="مثلاً 9876" inputmode="numeric"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>گزارش ماهانه پروژه</label>
+            <select id="projectYes">
+              <option value="">—</option>
+              <option value="yes">بله</option>
+              <option value="no">خیر</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>شماره نامه گزارش ماهانه پروژه</label>
+            <input id="projectNo" placeholder="مثلاً 12345" inputmode="numeric"/>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <h2>مانورها</h2>
+        <div id="drills"></div>
+        <div class="actions"><button class="btn" id="addDrillBtn">+ افزودن مانور</button></div>
+        <div class="hr"></div>
+
+        <h2>بررسی تجهیزات ایمنی (هر ۱۴ روز)</h2>
+        <div class="row">
+          <div class="field">
+            <label>انجام شد؟</label>
+            <select id="eqYes">
+              <option value="">—</option>
+              <option value="yes">بله</option>
+              <option value="no">خیر</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>شماره نامه/گزارش بررسی تجهیزات</label>
+            <input id="eqNo" placeholder="مثلاً 554433" inputmode="numeric"/>
+          </div>
+        </div>
+
+
+        <h2>پیگیری Action Plan</h2>
+        <div class="row">
+          <div class="field">
+            <label>پیگیری انجام شد؟</label>
+            <select id="apYes">
+              <option value="">—</option>
+              <option value="yes">بله</option>
+              <option value="no">خیر</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>شماره نامه/گزارش (اختیاری)</label>
+            <input id="apNo" placeholder="مثلاً 8899" inputmode="numeric"/>
+          </div>
+        </div>
+        <div class="row" id="apCounts" style="display:none;">
+          <div class="field">
+            <label>Close (تعداد)</label>
+            <input id="apClose" inputmode="numeric" placeholder="مثلاً 3"/>
+          </div>
+          <div class="field">
+            <label>Open (تعداد)</label>
+            <input id="apOpen" inputmode="numeric" placeholder="مثلاً 1"/>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <h2>درخواست‌ها (لیستی)</h2>
+        <div id="requests"></div>
+        <div class="actions">
+          <button class="btn" id="addReqBtn">+ افزودن درخواست</button>
+        </div>
+
+        <div class="hr"></div>
+
+        <h2>نامه‌های پیگیری (لیستی)</h2>
+        <div id="letters"></div>
+        <div class="actions">
+          <button class="btn" id="addLetterBtn">+ افزودن نامه</button>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="saveEntryBtn">ذخیره عملکرد این دوره</button>
+          <button class="btn" id="loadEntryBtn">بارگذاری عملکرد ذخیره‌شده (اگر قبلاً ثبت شده)</button>
+        </div>
+
+        <p class="hint" id="dupHint">اگر شماره نامه تکراری باشد، فیلد با کادر زرد مشخص می‌شود (فقط هشدار است، خطا نیست).</p>
+      </div>
+
+      <div class="card">
+        <h2>خلاصه سریع</h2>
+        <div id="entrySummary" class="hint">یک دوره را انتخاب کن تا خلاصه نمایش داده شود.</div>
+        <div class="hr"></div>
+        <h2>نکته مهم درباره «ذخیره نشدن/جایگزین نشدن»</h2>
+        <p class="hint">
+          داده‌ها به‌صورت «دوره‌ای» ذخیره می‌شوند و برای سال‌ها باقی می‌مانند.
+          هر دوره (۱۴ روزه) برای یک نفر یک رکورد دارد. اگر همان دوره را دوباره ذخیره کنی، همان رکورد بروزرسانی می‌شود (ولی دوره‌های قدیمی حذف نمی‌شوند).
+          برای آرشیو مطمئن، از تب بکاپ خروجی JSON بگیر.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tabReport" class="tab" style="display:none;">
+    <div class="grid cols2">
+      <div class="card no-print">
+        <h2>انتخاب نوع گزارش</h2>
+        <div class="field">
+          <label>نوع گزارش</label>
+          <select id="repType">
+            <option value="period">گزارش ۱۴ روزه (یک نفر)</option>
+            <option value="cycle">گزارش ۲۸ روزه (چرخه X+Y برای یک دکل)</option>
+            <option value="jmonth">گزارش ماه شمسی (مثلاً مهر ۱۴۰۴) برای یک دکل</option>
+          </select>
+        </div>
+
+        <div class="hr"></div>
+
+        <div id="repPeriodBox">
+          <div class="row">
+            <div class="field">
+              <label>دکل</label>
+              <select id="repRig1"></select>
+            </div>
+            <div class="field">
+              <label>دوره ۱۴ روزه</label>
+              <select id="repPeriod"></select>
+            </div>
+          </div>
+        </div>
+
+        <div id="repCycleBox" style="display:none;">
+          <div class="row">
+            <div class="field">
+              <label>دکل</label>
+              <select id="repRig2"></select>
+            </div>
+            <div class="field">
+              <label>شروع چرخه ۲۸ روزه (از تاریخ)</label>
+              <div class="row3" id="repCycleStart"></div>
+            </div>
+          </div>
+          <p class="hint">چرخه = دو دوره ۱۴ روزه پشت سر هم (X + Y). اگر دوره‌های مربوطه وجود داشته باشند، جمع‌بندی می‌شود.</p>
+        </div>
+
+        <div id="repJMonthBox" style="display:none;">
+          <div class="row">
+            <div class="field">
+              <label>دکل</label>
+              <select id="repRig3"></select>
+            </div>
+            <div class="field">
+              <label>ماه شمسی</label>
+              <select id="repJMonth"></select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label>سال شمسی</label>
+              <select id="repJYear"></select>
+            </div>
+            <div class="field">
+              <label>نمایش رکوردهای کدام بخش؟</label>
+              <select id="repJMonthScope">
+                <option value="all">همه موارد</option>
+                <option value="monthlyOnly">فقط آیتم‌های ماهانه (پسماند/آب/کمیته)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="buildReportBtn">ساخت گزارش</button>
+          <button class="btn" id="printBtn">پرینت / ذخیره PDF</button>
+        </div>
+
+        <p class="hint">
+          امضا در پایین گزارش ثابت است: «سرپرست ایمنی منطقه ۹: محمد کلاه‌کج».
+        </p>
+      </div>
+
+      <div class="card">
+        <h2 class="no-print">پیش‌نمایش گزارش</h2>
+        <div id="reportOut" class="print-area" style="overflow-x:auto;">
+          <div class="muted">هنوز گزارشی ساخته نشده.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tabInc" class="tab" style="display:none;">
+    <div class="grid cols2">
+      <div class="card no-print">
+        <h2>گزارش حوادث</h2>
+        <p class="hint">برای هر دکل، حوادث را ثبت کن تا بعداً راحت بتوانی پیگیری و گزارش بگیری.</p>
+
+        <div class="row">
+          <div class="field"><label>دکل</label><select id="incRig"></select></div>
+          <div class="field">
+            <label>نوع حادثه</label>
+            <select id="incType">
+              <option value="عملیاتی">عملیاتی</option>
+              <option value="تجهیزاتی">تجهیزاتی</option>
+              <option value="خودرویی">خودرویی</option>
+              <option value="زیست محیطی">زیست محیطی</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>نام حادثه‌دیده</label>
+            <input id="incPerson" placeholder="مثال: علی موالی" />
+          </div>
+          <div class="field">
+            <label>تاریخ حادثه</label>
+            <div class="row3" id="incDate"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>توضیح کوتاه (اختیاری)</label>
+            <input id="incNote" placeholder="مثال: آسیب سطحی دست - ثبت در دفتر حادثه" />
+          </div>
+          <div class="field">
+            <label>وضعیت</label>
+            <select id="incStatus">
+              <option value="باز">باز</option>
+              <option value="درحال پیگیری">درحال پیگیری</option>
+              <option value="بسته">بسته</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="incAddBtn">ثبت حادثه</button>
+          <button class="btn" id="incPrintBtn">پرینت لیست این دکل</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="no-print">لیست حوادث دکل</h2>
+        <div id="incOut" class="print-area" style="overflow-x:auto;">
+          <div class="muted">یک دکل انتخاب کن.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section id="tabFollow" class="tab" style="display:none;">
+    <div class="grid cols2">
+      <div class="card no-print">
+        <h2>پیگیری‌ها (نامه‌ها و درخواست‌ها)</h2>
+        <p class="hint">با انتخاب دکل، «نامه‌های پیگیری» و «درخواست‌ها» را یکجا به صورت لیست می‌بینی.</p>
+
+        <div class="row">
+          <div class="field"><label>دکل</label><select id="fuRig"></select></div>
+          <div class="field">
+            <label>فقط موارد باز</label>
+            <select id="fuOpenOnly">
+              <option value="yes">بله</option>
+              <option value="no">خیر</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field"><label>جستجو</label><input id="fuSearch" placeholder="شماره نامه / کلمه از موضوع / شرح درخواست..." /></div>
+          <div class="field">
+            <label>مرتب‌سازی</label>
+            <select id="fuSort">
+              <option value="new">جدیدترین</option>
+              <option value="old">قدیمی‌ترین</option>
+              <option value="letter">شماره نامه</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn" id="fuRefreshBtn">بروزرسانی لیست</button>
+          <button class="btn" id="fuPrintBtn">پرینت این لیست</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="no-print">لیست پیگیری‌ها</h2>
+        <div id="fuOut" class="print-area" style="overflow-x:auto;">
+          <div class="muted">یک دکل انتخاب کن.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tabLeave" class="tab" style="display:none;">
+    <div class="grid cols2">
+      <div class="card no-print">
+        <h2>مرخصی‌ها و جایگزین‌ها</h2>
+        <p class="hint">بر اساس «تعریف جایگزین» در تب برنامه اقماری. با انتخاب دکل و کارشناس، همه بازه‌های مرخصی/جایگزینی را یکجا می‌بینی.</p>
+
+        <div class="row">
+          <div class="field"><label>دکل</label><select id="lvRig"></select></div>
+          <div class="field"><label>کارشناس</label><select id="lvPerson"></select></div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>فقط مرخصی‌ها</label>
+            <select id="lvOnlyLeave">
+              <option value="yes">بله</option>
+              <option value="no">خیر (همه جایگزینی‌ها)</option>
+            </select>
+          </div>
+          <div class="field"><label>جستجو</label><input id="lvSearch" placeholder="نام جایگزین / تاریخ / ..." /></div>
+        </div>
+
+        <div class="actions">
+          <button class="btn" id="lvRefreshBtn">بروزرسانی</button>
+          <button class="btn" id="lvPrintBtn">پرینت</button>
+        </div>
+
+        <div class="hr"></div>
+        <p class="hint">نکته: اگر در تعریف جایگزین «نوع» را مرخصی انتخاب کنی، اینجا دقیقاً به عنوان مرخصی فیلتر می‌شود.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="no-print">لیست مرخصی/جایگزینی</h2>
+        <div id="lvOut" class="print-area" style="overflow-x:auto;"><div class="muted">یک دکل و کارشناس انتخاب کن.</div></div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <section id="tabBackup" class="tab" style="display:none;">
+    <div class="grid cols2">
+      <div class="card">
+        <h2>خروجی گرفتن (Export)</h2>
+        <p class="hint">برای اینکه چند سال اطلاعاتت مطمئن بماند، هر از گاهی خروجی JSON بگیر.</p>
+        <div class="actions">
+          <button class="btn primary" id="exportBtn">دانلود JSON</button>
+          <button class="btn danger" id="wipeBtn">پاک کردن کل داده‌های برنامه (احتیاط!)</button>
+        </div>
+        <div class="hr"></div>
+        <h2>Snapshot داخلی (امنیت بیشتر)</h2>
+        <p class="hint">برنامه بعد از هر ذخیره، یک نسخه داخلی از دیتابیس در مرورگر نگه می‌دارد. این Snapshot‌ها دانلود نیستند و برای برگشت سریع در صورت حذف اشتباه کاربرد دارند.</p>
+        <div class="inline"><span class="pill" id="lastSnap">آخرین Snapshot داخلی: —</span></div>
+        <div class="actions">
+          <button class="btn" id="forceSnapBtn">ایجاد Snapshot الان</button>
+          <button class="btn danger" id="clearSnapsBtn">حذف همه Snapshot‌ها</button>
+        </div>
+        <div id="snapBox"></div>
+<div class="hr"></div>
+        <h2>امنیت حذف (قفل با پسورد)</h2>
+        <p class="hint">برای جلوگیری از حذف اشتباهی، حذف رکوردها و «پاک کردن کل داده‌ها» فقط بعد از باز کردن قفل با پسورد ۶ رقمی ممکن است.</p>
+        <div class="row">
+          <div class="field">
+            <label>پسورد مدیریت (۶ رقم)</label>
+            <input id="adminPinSet" placeholder="******" inputmode="numeric" maxlength="6"/>
+          </div>
+          <div class="field">
+            <label>تکرار پسورد</label>
+            <input id="adminPinSet2" placeholder="******" inputmode="numeric" maxlength="6"/>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn" id="setPinBtn">تنظیم/تغییر پسورد</button>
+          <span class="pill warn" id="pinStatus">وضعیت پسورد: نامشخص</span>
+        </div>
+
+        <div class="hr"></div>
+        <h2>باز کردن قفل حذف</h2>
+        <div class="row">
+          <div class="field">
+            <label>پسورد مدیریت</label>
+            <input id="adminPinUnlock" placeholder="******" inputmode="numeric" maxlength="6"/>
+          </div>
+          <div class="field">
+            <label>کد تایید (نمایش داده می‌شود)</label>
+            <div class="inline">
+              <span class="pill" id="delCodeShow">—</span>
+              <button class="btn" id="genDelCodeBtn">ایجاد کد تایید</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>کد تایید را وارد کن</label>
+            <input id="delCodeInput" placeholder="۶ رقم" inputmode="numeric" maxlength="6"/>
+          </div>
+          <div class="field">
+            <label>وضعیت قفل</label>
+            <span class="pill warn" id="delLockStatus">قفل فعال است</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn primary" id="unlockDeleteBtn">باز کردن قفل (۱۰ دقیقه)</button>
+          <button class="btn danger" id="lockNowBtn">قفل کردن فوری</button>
+        </div>
+
+        <div class="hr"></div>
+        <h2>مدیریت رکوردها (حذف با قفل)</h2>
+        <div class="row">
+          <div class="field"><label>فیلتر دکل</label><select id="delRigFilter"></select></div>
+          <div class="field"><label>جستجو (اختیاری)</label><input id="delSearch" placeholder="نام نفر / شماره دوره / تاریخ..." /></div>
+        </div>
+        <div class="table-wrap" style="max-height:380px;"><table id="entryTable">
+            <thead><tr><th>دکل</th><th>دوره</th><th>بازه</th><th>نفر</th><th>آخرین ذخیره</th><th>حذف</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+<div class="hr"></div>
+        <h2>وضعیت دیتابیس</h2>
+        <pre id="dbMeta" class="hint" style="white-space:pre-wrap;"></pre>
+      </div>
+
+      <div class="card">
+        <h2>بازیابی (Import)</h2>
+        <p class="hint">فایل JSON را انتخاب کن تا تمام داده‌ها جایگزین شوند.</p>
+        <input type="file" id="importFile" accept="application/json"/>
+        <div class="actions">
+          <button class="btn" id="importBtn">Import</button>
+        </div>
+        <p class="hint">نکته: Import کل دیتابیس را با فایل جایگزین می‌کند. قبلش Export بگیر.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+
+// yes/no => "بله/خیر/—"  (تابع سراسری، برای جلوگیری از خطای TDZ)
+function yesNo(v){
+  const x = String(v||"").trim().toLowerCase();
+  if(!x) return "—";
+  if(x==="yes" || x==="بله" || x==="true" || x==="1") return "بله";
+  if(x==="no" || x==="خیر" || x==="false" || x==="0") return "خیر";
+  return "—";
+}
+
+// ==== Safety: show JS errors in-page (debug) ====
+(function(){
+  const show = (msg)=>{
+    try{
+      const p=document.getElementById("errPanel");
+      const t=document.getElementById("errText");
+      const c=document.getElementById("errClose");
+      if(!p||!t) return;
+      t.textContent = String(msg||"");
+      p.style.display="block";
+      if(c) c.onclick=()=>{ p.style.display="none"; };
+    }catch(e){}
+  };
+  window.addEventListener("error", (ev)=>{
+    const msg = (ev && (ev.message||ev.error)) ? (ev.message||String(ev.error)) : "Unknown error";
+    const where = ev && ev.filename ? `\n${ev.filename}:${ev.lineno||0}:${ev.colno||0}` : "";
+    show(msg + where);
+  });
+  window.addEventListener("unhandledrejection", (ev)=>{
+    const msg = ev && ev.reason ? (ev.reason.message||String(ev.reason)) : "Unhandled rejection";
+    show(msg);
+  });
+  window.__SHOW_ERR__ = show;
+})();
+function div(a,b){ return ~~(a/b); }
+function gregorianToJalali(gy, gm, gd){
+  const g_d_m=[0,31, (gy%4===0 && gy%100!==0) || (gy%400===0) ? 29:28,31,30,31,30,31,31,30,31,30,31];
+  let jy = (gy<=1600)?0:979;
+  gy -= (gy<=1600)?621:1600;
+  let gy2 = (gm>2)?(gy+1):gy;
+  let days = (365*gy) + div((gy2+3),4) - div((gy2+99),100) + div((gy2+399),400) - 80 + gd;
+  for(let i=0;i<gm;i++) days += g_d_m[i];
+  jy += 33*div(days,12053); days%=12053;
+  jy += 4*div(days,1461); days%=1461;
+  if(days>365){ jy += div((days-1),365); days=(days-1)%365; }
+  let jm = (days<186)? 1+div(days,31) : 7+div(days-186,30);
+  let jd = 1 + ((days<186)? (days%31) : ((days-186)%30));
+  return [jy, jm, jd];
+}
+function jalaliToGregorian(jy, jm, jd){
+  jy = parseInt(jy,10); jm=parseInt(jm,10); jd=parseInt(jd,10);
+  let gy = (jy<=979)?621:1600;
+  jy -= (jy<=979)?0:979;
+  let days = (365*jy) + div(jy,33)*8 + div((jy%33)+3,4) + 78 + jd
+    + (jm<7 ? (jm-1)*31 : ((jm-7)*30 + 186));
+  gy += 400*div(days,146097); days%=146097;
+  if(days>36524){ gy += 100*div(--days,36524); days%=36524; if(days>=365) days++; }
+  gy += 4*div(days,1461); days%=1461;
+  if(days>365){ gy += div((days-1),365); days=(days-1)%365; }
+  const gd_m=[0,31, ((gy%4===0 && gy%100!==0) || (gy%400===0))?29:28,31,30,31,30,31,31,30,31,30,31];
+  let gm=1;
+  for(; gm<=12 && days>=gd_m[gm]; gm++) days -= gd_m[gm];
+  let gd = days+1;
+  return [gy, gm, gd];
+}
+function jalaliMonthDays(jy, jm){
+  if(jm<=6) return 31;
+  if(jm<=11) return 30;
+  return isLeapJalali(jy) ? 30 : 29;
+}
+function isLeapJalali(jy){
+  const a = jy - (jy>0?474:473);
+  const b = (a % 2820) + 474;
+  return (((b + 38) * 682) % 2816) < 682;
+}
+function jToDateUTC(jy,jm,jd){
+  const [gy,gm,gd] = jalaliToGregorian(jy,jm,jd);
+  return new Date(Date.UTC(gy, gm-1, gd));
+}
+function dateUTCToJ(d){
+  const gy = d.getUTCFullYear(), gm = d.getUTCMonth()+1, gd = d.getUTCDate();
+  return gregorianToJalali(gy,gm,gd);
+}
+function fmtJ(jArr){
+  const [y,m,da]=jArr;
+  return `${y}/${String(m).padStart(2,'0')}/${String(da).padStart(2,'0')}`;
+}
+function addDaysUTC(d, n){
+  const x = new Date(d.getTime());
+  x.setUTCDate(x.getUTCDate()+n);
+  return x;
+}
+
+const KEY="RIG_HSE_DB_V1";
+const SNAP_KEY="RIG_HSE_SNAPSHOTS_V1";
+const SNAP_MAX=40; // تعداد آخرین Snapshot های داخلی
+const ADMIN_PIN_HASH_KEY="RIG_HSE_ADMINPIN_HASH_V1";
+const DELETE_UNLOCK_UNTIL_KEY="RIG_HSE_DELETE_UNLOCK_UNTIL_V1";
+const THEME_KEY="RIG_HSE_THEME_V1";
+function nowISO(){ return new Date().toISOString(); }
+function applyTheme(theme){
+  const t = theme==="light" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", t);
+  try{ localStorage.setItem(THEME_KEY, t); }catch(e){}
+  const btn=document.getElementById("themeToggleBtn");
+  if(btn){
+    btn.innerHTML = t==="light"
+      ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+      : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+    btn.title = t==="light" ? "تغییر به حالت شب" : "تغییر به حالت روز";
+    btn.setAttribute("aria-label", btn.title);
+  }
+}
+function initTheme(){
+  let saved="dark";
+  try{ saved = localStorage.getItem(THEME_KEY) || "dark"; }catch(e){}
+  applyTheme(saved);
+  const btn=document.getElementById("themeToggleBtn");
+  if(btn){
+    btn.addEventListener("click", ()=>{
+      const cur=document.documentElement.getAttribute("data-theme")==="light" ? "light" : "dark";
+      applyTheme(cur==="light" ? "dark" : "light");
+    });
+  }
+}
+const LEGACY_DEFAULT_RIGS=["Rig31","Rig46","Rig57","Rig58","Rig72","Rig73","Rig84"];
+function defaultRig(name){
+  return {
+    name, op:"", loc:"", note:"",
+    chiefTool1:"", chiefTool2:"", chiefTool:"", chiefTool1Start:null, chiefTool2Start:null,
+    regionChief:"", serviceRegionChief:"", chiefOps:"", managerOps:"", updatedAt:null,
+    people:{ A:{name:"", start:null}, B:{name:"", start:null} },
+    overrides:[]
+  };
+}
+function defaultDB(){
+  return {
+    meta:{version:1, createdAt: nowISO(), updatedAt: nowISO()},
+    rigs:{ Rig: defaultRig("Rig") },
+    schedules:{},
+    entries:{}
+  };
+}
+function rigNames(){
+  return Object.keys(DB?.rigs || {});
+}
+function toEnglishDigits(s){
+  return String(s||"").replace(/[۰-۹]/g, d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g, d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d));
+}
+function normalizeRigName(raw){
+  const s = toEnglishDigits(raw).trim().replace(/\s+/g, " ");
+  if(!s) return "";
+  if(/^\d+$/.test(s)) return "Rig" + s;
+  return s;
+}
+function rigNameExists(name, except=""){
+  const n = String(name||"").toLocaleLowerCase("fa-IR");
+  const ex = String(except||"").toLocaleLowerCase("fa-IR");
+  return rigNames().some(r=>String(r).toLocaleLowerCase("fa-IR")===n && String(r).toLocaleLowerCase("fa-IR")!==ex);
+}
+function makePeriodId(rig, startJ){
+  return `${rig}|${fmtJ(startJ)}`;
+}
+function ensureRigShape(rigName){
+  if(!DB.rigs) DB.rigs = {};
+  if(!DB.rigs[rigName]) DB.rigs[rigName] = defaultRig(rigName);
+  const r = DB.rigs[rigName];
+  r.name = rigName;
+  if(!r.people) r.people = {};
+  if(!r.people.A) r.people.A = {name:"", start:null};
+  if(!r.people.B) r.people.B = {name:"", start:null};
+  if(!Array.isArray(r.overrides)) r.overrides = [];
+  if(r.chiefTool1==null) r.chiefTool1 = r.chiefTool || "";
+  if(r.chiefTool2==null) r.chiefTool2 = "";
+  if(r.chiefTool==null)  r.chiefTool  = r.chiefTool1 || "";
+  if(r.chiefTool1Start==null) r.chiefTool1Start = null;
+  if(r.chiefTool2Start==null) r.chiefTool2Start = null;
+  if(r.regionChief==null) r.regionChief = "";
+  if(r.serviceRegionChief==null) r.serviceRegionChief = "";
+  if(r.op==null) r.op = "";
+  if(r.loc==null) r.loc = "";
+  if(r.note==null) r.note = "";
+  if(r.chiefOps==null) r.chiefOps = "";
+  if(r.managerOps==null) r.managerOps = "";
+  return r;
+}
+function isRigEmpty(r){
+  if(!r) return true;
+  const vals=[r.op,r.loc,r.note,r.chiefTool1,r.chiefTool2,r.chiefTool,r.regionChief,r.serviceRegionChief,r.chiefOps,r.managerOps];
+  const people=[r.people?.A?.name,r.people?.B?.name,r.people?.A?.start,r.people?.B?.start,r.chiefTool1Start,r.chiefTool2Start];
+  return vals.every(v=>!String(v||"").trim())
+    && people.every(v=>!v || (Array.isArray(v) && !v.length))
+    && !(r.overrides||[]).length;
+}
+function collapseLegacyDefaultRigsIfEmpty(){
+  const names=Object.keys(DB.rigs||{}).sort();
+  const legacy=LEGACY_DEFAULT_RIGS.slice().sort();
+  const sameLegacy = names.length===legacy.length && names.every((x,i)=>x===legacy[i]);
+  if(!sameLegacy) return false;
+  if(Object.values(DB.schedules||{}).some(s=>(s?.periods||[]).length)) return false;
+  if(Object.keys(DB.entries||{}).length) return false;
+  if((DB.incidents||[]).length) return false;
+  if(LEGACY_DEFAULT_RIGS.some(rn=>!isRigEmpty(DB.rigs[rn]))) return false;
+  DB.rigs = { Rig: defaultRig("Rig") };
+  DB.schedules = {};
+  DB.entries = {};
+  DB.incidents = [];
+  return true;
+}
+let DB;
+function loadDB(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    DB = raw ? JSON.parse(raw) : defaultDB();
+  }catch(e){
+    DB = defaultDB();
+  }
+  // نرمال‌سازی ساختار برای سازگاری با نسخه‌های قبلی
+  if(!DB || typeof DB!=="object") DB = defaultDB();
+  if(!DB.meta) DB.meta = {version:1, createdAt: nowISO(), updatedAt: nowISO()};
+  if(!DB.rigs || !Object.keys(DB.rigs).length) DB.rigs = defaultDB().rigs;
+  if(!DB.schedules) DB.schedules = {};
+  if(!DB.entries) DB.entries = {};
+  for(const rn of Object.keys(DB.rigs||{})){
+    ensureRigShape(rn);
+  }
+  // حوادث
+  if(!DB.incidents) DB.incidents = [];
+  collapseLegacyDefaultRigsIfEmpty();
+
+  DB.meta.updatedAt = nowISO();
+  saveDB(false);
+  updateDBStatus();
+}
+function saveDB(updateMeta=true, snapshotReason=""){
+  if(updateMeta) DB.meta.updatedAt = nowISO();
+  localStorage.setItem(KEY, JSON.stringify(DB));
+  // Snapshot داخلی برای امنیت داده‌ها (بدون دانلود، داخل مرورگر)
+  try{ maybeSnapshot(snapshotReason); }catch(e){}
+  updateDBStatus();
+}
+function updateDBStatus(){
+  const el=document.getElementById("dbStatus");
+  const countEntries = Object.keys(DB.entries||{}).length;
+  const isMobile = window.innerWidth <= 520;
+  if(isMobile){
+    el.textContent = `✓ ${countEntries} رکورد`;
+  } else {
+    el.textContent = `ذخیره‌شده | ${countEntries} رکورد | ${new Date(DB.meta.updatedAt).toLocaleString('fa-IR')}`;
+  }
+  const metaEl=document.getElementById("dbMeta");
+  if(metaEl) metaEl.textContent = JSON.stringify(DB.meta, null, 2);
+}
+function loadSnapshots(){
+  try{ return JSON.parse(localStorage.getItem(SNAP_KEY) || "[]"); }catch(e){ return []; }
+}
+function saveSnapshots(list){
+  try{ localStorage.setItem(SNAP_KEY, JSON.stringify(list)); }catch(e){}
+}
+function makeSnapshot(reason=""){
+  return {
+    id: cryptoId(),
+    at: nowISO(),
+    reason: reason || "",
+    meta: DB.meta,
+    rigsCount: Object.keys(DB.rigs||{}).length,
+    entriesCount: Object.keys(DB.entries||{}).length,
+    data: DB
+  };
+}
+function maybeSnapshot(reason=""){
+  // هر بار ذخیره، اگر 30 ثانیه از آخرین Snapshot گذشته باشد، یک Snapshot بساز
+  const now = Date.now();
+  const last = parseInt(localStorage.getItem(SNAP_KEY+"_LAST") || "0", 10);
+  if(now - last < 30000) return;
+  localStorage.setItem(SNAP_KEY+"_LAST", String(now));
+
+  const snaps = loadSnapshots();
+  snaps.unshift(makeSnapshot(reason));
+  if(snaps.length > SNAP_MAX) snaps.length = SNAP_MAX;
+  saveSnapshots(snaps);
+  // برای نمایش در UI
+  localStorage.setItem(SNAP_KEY+"_LAST_AT", nowISO());
+  refreshSnapshotUI();
+}
+function fmtFa(ts){
+  try{ return new Date(ts).toLocaleString('fa-IR'); }catch(e){ return ts; }
+}
+function refreshSnapshotUI(){
+  const box = document.getElementById("snapBox");
+  const lastEl = document.getElementById("lastSnap");
+  if(!box || !lastEl) return;
+
+  const lastAt = localStorage.getItem(SNAP_KEY+"_LAST_AT");
+  lastEl.textContent = lastAt ? `آخرین Snapshot داخلی: ${fmtFa(lastAt)}` : "آخرین Snapshot داخلی: —";
+
+  const snaps = loadSnapshots();
+  if(!snaps.length){
+    box.innerHTML = '<div class="hint">هنوز Snapshot داخلی ساخته نشده. با اولین «ذخیره» خودکار ایجاد می‌شود.</div>';
+    return;
+  }
+  box.innerHTML = snaps.slice(0,12).map(s=>{
+    const reason = s.reason ? ` | ${escapeHTML(s.reason)}` : "";
+    return `<div style="display:flex; gap:8px; align-items:center; justify-content:space-between; border:1px solid rgba(34,48,71,.6); padding:8px; border-radius:12px; margin:6px 0;">
+      <div class="small">
+        <b>${fmtFa(s.at)}</b>${reason}<br/>
+        رکوردها: ${s.entriesCount}
+      </div>
+      <div style="display:flex; gap:6px;">
+        <button class="btn" data-snap-restore="${s.id}" style="padding:6px 10px; font-size:12px;">بازگردانی</button>
+        <button class="btn danger" data-snap-del="${s.id}" style="padding:6px 10px; font-size:12px;">حذف</button>
+      </div>
+    </div>`;
+  }).join("");
+
+  box.querySelectorAll("button[data-snap-del]").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      const id=b.dataset.snapDel;
+      const list=loadSnapshots().filter(x=>x.id!==id);
+      saveSnapshots(list);
+      refreshSnapshotUI();
+    });
+  });
+  box.querySelectorAll("button[data-snap-restore]").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      const id=b.dataset.snapRestore;
+      const s=loadSnapshots().find(x=>x.id===id);
+      if(!s) return;
+      if(!confirm("بازگردانی Snapshot یعنی دیتابیس فعلی با نسخه انتخابی جایگزین می‌شود. ادامه می‌دهی؟")) return;
+      DB = s.data;
+      // ذخیره بدون ساخت snapshot جدید (برای جلوگیری از حلقه)
+      try{ localStorage.setItem(KEY, JSON.stringify(DB)); }catch(e){}
+      updateDBStatus();
+      alert("بازگردانی انجام شد. برای اطمینان صفحه یک بار Refresh شود.");
+    });
+  });
+}
+
+
+function makeJalaliDropdown(containerId, opts={}){
+  const el = document.getElementById(containerId);
+  const ySel=document.createElement("select");
+  const mSel=document.createElement("select");
+  const dSel=document.createElement("select");
+
+  const yFrom = opts.yFrom ?? 1395;
+  const yTo   = opts.yTo ?? 1412;
+  const yDef  = opts.yDef ?? 1404;
+  const mDef  = opts.mDef ?? 1;
+  const dDef  = opts.dDef ?? 1;
+
+  for(let y=yFrom;y<=yTo;y++){
+    const o=document.createElement("option"); o.value=y; o.textContent=y;
+    if(y===yDef) o.selected=true;
+    ySel.appendChild(o);
+  }
+  const monthNames=["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"];
+  for(let m=1;m<=12;m++){
+    const o=document.createElement("option"); o.value=m; o.textContent=`${m} - ${monthNames[m-1]}`;
+    if(m===mDef) o.selected=true;
+    mSel.appendChild(o);
+  }
+  function refillDays(){
+    const y=parseInt(ySel.value,10), m=parseInt(mSel.value,10);
+    const max=jalaliMonthDays(y,m);
+    const cur=parseInt(dSel.value||dDef,10);
+    dSel.innerHTML="";
+    for(let d=1; d<=max; d++){
+      const o=document.createElement("option"); o.value=d; o.textContent=d;
+      if(d===Math.min(cur,max)) o.selected=true;
+      dSel.appendChild(o);
+    }
+  }
+  ySel.addEventListener("change", refillDays);
+  mSel.addEventListener("change", refillDays);
+
+  const f1=document.createElement("div"); f1.className="field"; f1.innerHTML="<label>سال</label>"; f1.appendChild(ySel);
+  const f2=document.createElement("div"); f2.className="field"; f2.innerHTML="<label>ماه</label>"; f2.appendChild(mSel);
+  const f3=document.createElement("div"); f3.className="field"; f3.innerHTML="<label>روز</label>"; f3.appendChild(dSel);
+
+  el.innerHTML="";
+  el.appendChild(f1); el.appendChild(f2); el.appendChild(f3);
+  refillDays();
+
+  return {
+    get(){ return [parseInt(ySel.value,10), parseInt(mSel.value,10), parseInt(dSel.value,10)]; },
+    set(j){ ySel.value=j[0]; mSel.value=j[1]; refillDays(); dSel.value=j[2]; },
+    elements:{ySel,mSel,dSel}
+  };
+}
+
+const monthNames=["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"];
+let dd_pA, dd_pB, dd_chiefTool1Start, dd_chiefTool2Start, dd_schStart, dd_ovFrom, dd_ovTo, dd_repCycleStart;
+let currentRig="Rig";
+
+function init(){
+  loadDB();
+  initTheme();
+
+  function switchTab(tid){
+    document.querySelectorAll("[data-tab]").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll("[data-tab='"+tid+"']").forEach(x=>x.classList.add("active"));
+    document.querySelectorAll(".tab").forEach(s=>{ s.style.display="none"; s.style.animation="none"; });
+    const el=document.getElementById(tid);
+    if(el){ el.style.display=""; void el.offsetWidth; el.style.animation=""; }
+    try{ window.scrollTo({top:0,behavior:"smooth"}); }catch(e){}
+    if(tid==="tabSchedule"){ try{ const rig=document.getElementById("schRig").value; const r=DB.rigs[rig]; if(r?.people?.A?.start) dd_schStart.set(r.people.A.start); }catch(e){} refreshScheduleView(); }
+    if(tid==="tabEntry") refreshEntrySelectors();
+    if(tid==="tabReport") refreshReportSelectors();
+    if(tid==="tabInc"){ try{ renderIncidents(); }catch(e){ (window.__SHOW_ERR__||alert)(e&&(e.stack||e.message||e)); } }
+    if(tid==="tabFollow"){ try{ renderFollowups(); }catch(e){ (window.__SHOW_ERR__||alert)(e&&(e.stack||e.message||e)); } }
+    if(tid==="tabLeave"){ try{ renderLeaves(); }catch(e){ (window.__SHOW_ERR__||alert)(e&&(e.stack||e.message||e)); } }
+  }
+  document.querySelectorAll("[data-tab]").forEach(b=>{
+    b.addEventListener("click", ()=>{ if(b.dataset.tab) switchTab(b.dataset.tab); });
+  });
+
+  refreshRigSelects();
+  const rigs=rigNames();
+
+  document.getElementById("rigSelect").addEventListener("change", (e)=>{
+    currentRig=e.target.value;
+    loadRigForm(currentRig);
+  });
+
+  const todayJ = dateUTCToJ(new Date());
+  dd_pA = makeJalaliDropdown("pADate", {yFrom:1395,yTo:1415,yDef:todayJ[0],mDef:todayJ[1],dDef:todayJ[2]});
+  dd_pB = makeJalaliDropdown("pBDate", {yFrom:1395,yTo:1415,yDef:todayJ[0],mDef:todayJ[1],dDef:todayJ[2]});
+  dd_chiefTool1Start = makeJalaliDropdown("chiefTool1Date", {yFrom:1395,yTo:1415,yDef:todayJ[0],mDef:todayJ[1],dDef:todayJ[2]});
+  dd_chiefTool2Start = makeJalaliDropdown("chiefTool2Date", {yFrom:1395,yTo:1415,yDef:todayJ[0],mDef:todayJ[1],dDef:todayJ[2]});
+  dd_schStart = makeJalaliDropdown("schStart", {yFrom:1395,yTo:1415,yDef:todayJ[0],mDef:todayJ[1],dDef:todayJ[2]});
+  dd_ovFrom = makeJalaliDropdown("ovFrom", {yFrom:1395,yTo:1415,yDef:todayJ[0],mDef:todayJ[1],dDef:todayJ[2]});
+  dd_ovTo   = makeJalaliDropdown("ovTo",   {yFrom:1395,yTo:1415,yDef:todayJ[0],mDef:todayJ[1],dDef:todayJ[2]});
+  dd_repCycleStart = makeJalaliDropdown("repCycleStart", {yFrom:1395,yTo:1415,yDef:todayJ[0],mDef:todayJ[1],dDef:todayJ[2]});
+  dd_incDate = makeJalaliDropdown("incDate", {yFrom:1395,yTo:1415,yDef:todayJ[0],mDef:todayJ[1],dDef:todayJ[2]});
+
+  document.getElementById("saveRigBtn").addEventListener("click", saveRigForm);
+  document.getElementById("resetRigBtn").addEventListener("click", ()=>loadRigForm(currentRig));
+  document.getElementById("savePeopleBtn").addEventListener("click", savePeopleForm);
+  document.getElementById("renameRigBtn").addEventListener("click", renameCurrentRig);
+  document.getElementById("addRigBtn").addEventListener("click", addRig);
+  document.getElementById("deleteRigBtn").addEventListener("click", deleteCurrentRig);
+
+  document.getElementById("genScheduleBtn").addEventListener("click", genSchedule);
+  document.getElementById("schRig").addEventListener("change", ()=>{ try{ const rig=document.getElementById("schRig").value; const r=DB.rigs[rig]; if(r?.people?.A?.start) dd_schStart.set(r.people.A.start); refreshScheduleView(); }catch(e){ (window.__SHOW_ERR__||(()=>{}))(e); } });
+  document.getElementById("clearScheduleBtn").addEventListener("click", clearSchedule);
+  document.getElementById("addOverrideBtn").addEventListener("click", addOverride);
+
+  document.getElementById("enRig").addEventListener("change", ()=>refreshEntrySelectors({preferCurrent:true}));
+  document.getElementById("enPeriod").addEventListener("change", ()=>onPeriodChanged({silent:true}));
+  document.getElementById("addTrainingBtn").addEventListener("click", ()=>addTrainingRow());
+  document.getElementById("addDrillBtn").addEventListener("click", ()=>addDrillRow());
+  document.getElementById("apYes").addEventListener("change", toggleActionPlanCounts);
+
+  document.getElementById("addReqBtn").addEventListener("click", ()=>addRequestRow());
+  document.getElementById("addLetterBtn").addEventListener("click", ()=>addLetterRow());
+  document.getElementById("saveEntryBtn").addEventListener("click", saveEntry);
+  document.getElementById("loadEntryBtn").addEventListener("click", loadEntryForSelected);
+
+  ["wasteNo","waterNo","committeeNo","eqNo"].forEach(id=>{
+    document.getElementById(id).addEventListener("input", checkDuplicates);
+  });
+
+  document.getElementById("repType").addEventListener("change", onRepType);
+  document.getElementById("repRig1").addEventListener("change", refreshReportSelectors);
+  document.getElementById("buildReportBtn").addEventListener("click", buildReport);
+  document.getElementById("printBtn").addEventListener("click", ()=>window.print());
+  // follow-ups
+  document.getElementById("fuRefreshBtn").addEventListener("click", renderFollowups);
+  document.getElementById("fuRig").addEventListener("change", renderFollowups);
+  document.getElementById("fuOpenOnly").addEventListener("change", renderFollowups);
+  document.getElementById("fuSort").addEventListener("change", renderFollowups);
+  document.getElementById("fuSearch").addEventListener("input", renderFollowups);
+  document.getElementById("fuPrintBtn").addEventListener("click", ()=>window.print());
+  // incidents
+  document.getElementById("incRig").addEventListener("change", renderIncidents);
+  document.getElementById("incAddBtn").addEventListener("click", addIncident);
+  document.getElementById("incPrintBtn").addEventListener("click", ()=>window.print());
+
+  // leaves
+  document.getElementById("lvRig").addEventListener("change", ()=>{ buildLeavePersonOptions(document.getElementById("lvRig").value); renderLeaves(); });
+  document.getElementById("lvPerson").addEventListener("change", renderLeaves);
+  document.getElementById("lvOnlyLeave").addEventListener("change", renderLeaves);
+  document.getElementById("lvSearch").addEventListener("input", renderLeaves);
+  document.getElementById("lvRefreshBtn").addEventListener("click", renderLeaves);
+  document.getElementById("lvPrintBtn").addEventListener("click", ()=>window.print());
+
+
+  document.getElementById("exportBtn").addEventListener("click", exportJSON);
+  document.getElementById("importBtn").addEventListener("click", importJSON);
+  document.getElementById("wipeBtn").addEventListener("click", wipeAll);
+
+  // امنیت حذف
+  updatePinStatus();
+  updateDeleteLockUI();
+  document.getElementById("setPinBtn").addEventListener("click", ()=>{ setOrChangePin(); });
+  document.getElementById("genDelCodeBtn").addEventListener("click", ()=>{ genDeleteCode(); });
+  document.getElementById("unlockDeleteBtn").addEventListener("click", ()=>{ unlockDelete(); });
+  document.getElementById("lockNowBtn").addEventListener("click", ()=>{ lockNow(); });
+  document.getElementById("delRigFilter").addEventListener("change", refreshEntryTable);
+  document.getElementById("delSearch").addEventListener("input", refreshEntryTable);
+  refreshEntryTable();
+  setInterval(()=>{ updateDeleteLockUI(); }, 30000);
+
+  // Snapshot داخلی
+  document.getElementById("forceSnapBtn").addEventListener("click", ()=>{ maybeSnapshot("دستی"); alert("Snapshot داخلی ساخته شد."); });
+  document.getElementById("clearSnapsBtn").addEventListener("click", ()=>{
+    if(!isDeleteUnlocked()){
+      alert("قفل حذف فعال است. برای حذف Snapshotها ابتدا قفل را باز کن.");
+      return;
+    }
+    if(!confirm("همه Snapshot‌های داخلی حذف شوند؟")) return;
+    localStorage.removeItem(SNAP_KEY);
+    localStorage.removeItem(SNAP_KEY+"_LAST");
+    localStorage.removeItem(SNAP_KEY+"_LAST_AT");
+    refreshSnapshotUI();
+  });
+
+  fillSelect("repJMonth", monthNames.map((n,i)=>({value:String(i+1), label:`${i+1} - ${n}`})), true);
+  const ySel=document.getElementById("repJYear");
+  ySel.innerHTML="";
+  for(let y=1395;y<=1415;y++){
+    const o=document.createElement("option"); o.value=y; o.textContent=y;
+    if(y===todayJ[0]) o.selected=true;
+    ySel.appendChild(o);
+  }
+
+  currentRig=rigs[0];
+  document.getElementById("rigSelect").value=currentRig;
+  loadRigForm(currentRig);
+
+  // auto set schedule-year start from کارشناس A
+  try{ const r=DB.rigs[currentRig]; if(r?.people?.A?.start) dd_schStart.set(r.people.A.start); }catch(e){}
+
+  // init leaves tab
+  try{ document.getElementById("lvRig").value = currentRig; buildLeavePersonOptions(currentRig); }catch(e){}
+  // init incidents tab
+  try{ document.getElementById("incRig").value = currentRig; }catch(e){}
+
+  addTrainingRow();
+  addDrillRow();
+  addRequestRow();
+  addLetterRow();
+
+  refreshScheduleView();
+  refreshEntrySelectors();
+  refreshReportSelectors();
+}
+function fillSelect(id, items, isObj=false){
+  const s=document.getElementById(id);
+  if(!s) return;
+  s.innerHTML="";
+  if(!isObj){
+    items.forEach(v=>{
+      const o=document.createElement("option"); o.value=v; o.textContent=v; s.appendChild(o);
+    });
+  }else{
+    items.forEach(x=>{
+      const o=document.createElement("option"); o.value=x.value; o.textContent=x.label; s.appendChild(o);
+    });
+  }
+}
+
+function refreshRigSelects(selectedRig=""){
+  const rigs = rigNames();
+  const target = rigs.includes(selectedRig) ? selectedRig : (rigs[0] || "");
+  ["rigSelect","schRig","enRig","repRig1","repRig2","repRig3","fuRig","incRig","lvRig"].forEach(id=>{
+    const sel=document.getElementById(id);
+    if(!sel) return;
+    const keep = rigs.includes(sel.value) ? sel.value : target;
+    fillSelect(id, rigs);
+    sel.value = target || keep || rigs[0] || "";
+  });
+  const del=document.getElementById("delRigFilter");
+  if(del){
+    const keep = del.value || "ALL";
+    fillSelect("delRigFilter", ["ALL", ...rigs]);
+    if(del.options[0]) del.options[0].textContent="همه دکل‌ها";
+    del.value = (keep==="ALL" || rigs.includes(keep)) ? keep : "ALL";
+  }
+}
+
+function refreshAfterRigChange(selectedRig){
+  currentRig = selectedRig || rigNames()[0];
+  refreshRigSelects(currentRig);
+  document.getElementById("rigSelect").value = currentRig;
+  loadRigForm(currentRig);
+  try{ const r=DB.rigs[currentRig]; if(r?.people?.A?.start) dd_schStart.set(r.people.A.start); }catch(e){}
+  try{ refreshScheduleView(); }catch(e){}
+  try{ refreshEntrySelectors(); }catch(e){}
+  try{ refreshReportSelectors(); }catch(e){}
+  try{ buildLeavePersonOptions(document.getElementById("lvRig").value); }catch(e){}
+  try{ renderLeaves(); }catch(e){}
+  try{ renderIncidents(); }catch(e){}
+  try{ renderFollowups(); }catch(e){}
+  try{ refreshEntryTable(); }catch(e){}
+}
+
+function validateRigName(name, oldName=""){
+  if(!name){ alert("نام دکل را وارد کن."); return false; }
+  if(name.includes("|")){ alert("نام دکل نمی‌تواند شامل کاراکتر | باشد."); return false; }
+  if(name.length > 60){ alert("نام دکل خیلی طولانی است."); return false; }
+  if(rigNameExists(name, oldName)){ alert("این نام دکل قبلاً وجود دارد."); return false; }
+  return true;
+}
+
+function addRig(){
+  const input=document.getElementById("newRigName");
+  const name=normalizeRigName(input.value);
+  if(!validateRigName(name)) return;
+  DB.rigs[name]=defaultRig(name);
+  saveDB(true,"افزودن دکل");
+  input.value="";
+  refreshAfterRigChange(name);
+  alert("دکل جدید اضافه شد.");
+}
+
+function renameCurrentRig(){
+  const oldName=currentRig;
+  const newName=normalizeRigName(document.getElementById("rigNameEdit").value);
+  if(!validateRigName(newName, oldName)) return;
+  if(newName===oldName){ alert("نام دکل تغییری نکرده است."); return; }
+  const r=ensureRigShape(oldName);
+  r.name=newName;
+
+  const nextRigs={};
+  Object.keys(DB.rigs).forEach(k=>{
+    nextRigs[k===oldName ? newName : k] = DB.rigs[k];
+  });
+  DB.rigs=nextRigs;
+
+  if(DB.schedules?.[oldName]){
+    DB.schedules[newName]=DB.schedules[oldName];
+    delete DB.schedules[oldName];
+    (DB.schedules[newName].periods||[]).forEach(p=>{
+      p.rig=newName;
+      p.id=makePeriodId(newName, p.startJ);
+    });
+  }
+
+  Object.keys(DB.entries||{}).forEach(key=>{
+    const e=DB.entries[key];
+    if(!e) return;
+    const belongs = e.rig===oldName || String(key).startsWith(oldName+"|");
+    if(!belongs) return;
+    const newId = e.periodStartJ ? makePeriodId(newName, e.periodStartJ) : String(key).replace(oldName+"|", newName+"|");
+    e.rig=newName;
+    e.periodId=newId;
+    delete DB.entries[key];
+    DB.entries[newId]=e;
+  });
+
+  (DB.incidents||[]).forEach(it=>{ if(it.rig===oldName) it.rig=newName; });
+  saveDB(true,"تغییر نام دکل");
+  refreshAfterRigChange(newName);
+  alert("نام دکل تغییر کرد و داده‌های مرتبط هماهنگ شدند.");
+}
+
+function deleteCurrentRig(){
+  const rig=currentRig;
+  const rigs=rigNames();
+  if(rigs.length<=1){ alert("حداقل یک دکل باید در برنامه باقی بماند."); return; }
+  const entryKeys=Object.keys(DB.entries||{}).filter(k=>{
+    const e=DB.entries[k];
+    return e?.rig===rig || String(k).startsWith(rig+"|");
+  });
+  const periodCount=(DB.schedules?.[rig]?.periods||[]).length;
+  const incidentCount=(DB.incidents||[]).filter(x=>x.rig===rig).length;
+  const msg = `دکل «${rig}» حذف شود؟\n\nبرنامه‌ها: ${periodCount}\nرکوردهای عملکرد: ${entryKeys.length}\nحوادث: ${incidentCount}\n\nاین داده‌های مرتبط هم حذف می‌شوند.`;
+  if(!confirm(msg)) return;
+  delete DB.rigs[rig];
+  delete DB.schedules[rig];
+  entryKeys.forEach(k=>delete DB.entries[k]);
+  DB.incidents=(DB.incidents||[]).filter(x=>x.rig!==rig);
+  const next=rigNames()[0];
+  saveDB(true,"حذف دکل");
+  refreshAfterRigChange(next);
+  alert("دکل حذف شد.");
+}
+
+function loadRigForm(rigName){
+  const r=ensureRigShape(rigName);
+  const nameInput=document.getElementById("rigNameEdit");
+  if(nameInput) nameInput.value=rigName;
+  document.getElementById("rigOp").value=r.op||"";
+  document.getElementById("rigLoc").value=r.loc||"";
+  document.getElementById("rigNote").value=r.note||"";
+  document.getElementById("rigChiefTool").value=(r.chiefTool1 ?? r.chiefTool) || "";
+  document.getElementById("rigChiefTool2").value=r.chiefTool2||"";
+  document.getElementById("rigRegionChief").value=r.regionChief||"";
+  document.getElementById("rigServiceRegionChief").value=r.serviceRegionChief||"";
+  document.getElementById("rigChiefOps").value=r.chiefOps||"";
+  document.getElementById("rigManagerOps").value=r.managerOps||"";
+  if(r.chiefTool1Start) dd_chiefTool1Start.set(r.chiefTool1Start);
+  if(r.chiefTool2Start) dd_chiefTool2Start.set(r.chiefTool2Start);
+  document.getElementById("rigUpdatedJ").textContent = r.updatedAt ? fmtJ(r.updatedAt) : "—";
+
+  document.getElementById("pAName").value=r.people?.A?.name||"";
+  document.getElementById("pBName").value=r.people?.B?.name||"";
+  if(r.people?.A?.start) { dd_pA.set(r.people.A.start); try{ dd_schStart.set(r.people.A.start); }catch(e){} }
+  if(r.people?.B?.start) dd_pB.set(r.people.B.start);
+}
+function saveRigForm(){
+  const r=ensureRigShape(currentRig);
+  r.op=document.getElementById("rigOp").value.trim();
+  r.loc=document.getElementById("rigLoc").value.trim();
+  r.note=document.getElementById("rigNote").value.trim();
+  r.chiefTool1=document.getElementById("rigChiefTool").value.trim();
+  r.chiefTool2=document.getElementById("rigChiefTool2").value.trim();
+  r.chiefTool=r.chiefTool1;
+  r.regionChief=document.getElementById("rigRegionChief").value.trim();
+  r.serviceRegionChief=document.getElementById("rigServiceRegionChief").value.trim();
+  r.chiefTool1Start=dd_chiefTool1Start.get();
+  r.chiefTool2Start=dd_chiefTool2Start.get();
+  r.chiefOps=document.getElementById("rigChiefOps").value.trim();
+  r.managerOps=document.getElementById("rigManagerOps").value.trim();
+  r.updatedAt = dateUTCToJ(new Date());
+  saveDB();
+  loadRigForm(currentRig);
+  alert("اطلاعات دکل ذخیره شد.");
+}
+function savePeopleForm(){
+  const r=ensureRigShape(currentRig);
+  r.people.A.name=document.getElementById("pAName").value.trim();
+  r.people.B.name=document.getElementById("pBName").value.trim();
+  r.people.A.start=dd_pA.get();
+  r.people.B.start=dd_pB.get();
+  saveDB(true,"ذخیره کارشناسان");
+  alert("کارشناسان ذخیره شدند.");
+}
+
+function genSchedule(){
+  const rig = document.getElementById("schRig").value;
+  const r=ensureRigShape(rig);
+  if(!r.people.A.name || !r.people.B.name || !r.people.A.start || !r.people.B.start){
+    alert("برای این دکل ابتدا نام و تاریخ شروع کارشناس A و B را در تب «دکل‌ها» ذخیره کن.");
+    return;
+  }
+  const anchorJ = dd_schStart.get();
+  const anchor = jToDateUTC(...anchorJ);
+  const end = addDaysUTC(anchor, 365);
+  const periods=[];
+  let idx=0;
+  let curStart = anchor;
+
+  while(curStart < end){
+    const curEnd = addDaysUTC(curStart, 13);
+    const personBase = whoIsOnDutyBase(r, curStart);
+    const duty = applyOverrides(r, curStart, curEnd, personBase);
+    const pId = makePeriodId(rig, dateUTCToJ(curStart));
+    periods.push({
+      id:pId,
+      rig,
+      n: idx+1,
+      startJ: dateUTCToJ(curStart),
+      endJ: dateUTCToJ(curEnd),
+      base: personBase,
+      person: duty.person,
+      personType: duty.type,
+      chiefTool: whoIsChiefToolOnDuty(r, curStart).name,
+      chiefToolSlot: whoIsChiefToolOnDuty(r, curStart).slot
+    });
+    idx++;
+    curStart = addDaysUTC(curStart, 14);
+  }
+  DB.schedules[rig] = { anchorStartJ: anchorJ, periods };
+  saveDB(true,"تولید برنامه");
+  refreshScheduleView();
+  alert("برنامه یک‌ساله تولید/بروزرسانی شد.");
+}
+
+function clearSchedule(){
+  const rig=document.getElementById("schRig").value;
+  if(!confirm("برنامه‌ی این دکل حذف شود؟ (عملکردهای ثبت‌شده حذف نمی‌شوند)")) return;
+  delete DB.schedules[rig];
+  saveDB();
+  refreshScheduleView();
+}
+
+function whoIsOnDutyBase(rigObj, dateUTC){
+  const aStartJ = rigObj?.people?.A?.start;
+  if(!Array.isArray(aStartJ) || aStartJ.length<3) return "A";
+  const aStart = jToDateUTC(...aStartJ);
+  const diff = Math.floor((dateUTC - aStart) / (24*3600*1000));
+  const block = Math.floor(diff / 14);
+  const isA = (block % 2 === 0);
+  return isA ? "A" : "B";
+}
+
+function chiefToolAnchor(rigObj){
+  if(Array.isArray(rigObj?.chiefTool1Start) && rigObj.chiefTool1Start.length>=3){
+    return {slot:"1", date:jToDateUTC(...rigObj.chiefTool1Start)};
+  }
+  if(Array.isArray(rigObj?.chiefTool2Start) && rigObj.chiefTool2Start.length>=3){
+    return {slot:"2", date:jToDateUTC(...rigObj.chiefTool2Start)};
+  }
+  return null;
+}
+function whoIsChiefToolOnDuty(rigObj, dateUTC){
+  const c1 = ((rigObj?.chiefTool1 ?? rigObj?.chiefTool) || "").trim();
+  const c2 = (rigObj?.chiefTool2 || "").trim();
+  const anchor = chiefToolAnchor(rigObj);
+  if(!anchor){
+    const fallbackSlot = c1 ? "1" : (c2 ? "2" : "");
+    return {slot:fallbackSlot, name:c1 || c2 || ""};
+  }
+  const diff = Math.floor((dateUTC - anchor.date) / (24*3600*1000));
+  const block = Math.floor(diff / 14);
+  const sameAsAnchor = (block % 2 === 0);
+  const slot = anchor.slot==="1"
+    ? (sameAsAnchor ? "1" : "2")
+    : (sameAsAnchor ? "2" : "1");
+  return {slot, name: slot==="1" ? c1 : c2};
+}
+function chiefToolChangeCuts(rigObj, ps, pe){
+  const anchor = chiefToolAnchor(rigObj);
+  if(!anchor) return [];
+  const cuts=[];
+  const dayMs=24*3600*1000;
+  let k = Math.floor((ps - anchor.date) / dayMs / 14) - 1;
+  for(let guard=0; guard<80; guard++, k++){
+    const d = addDaysUTC(anchor.date, k*14);
+    if(d > pe) break;
+    if(d > ps) cuts.push(d);
+  }
+  return cuts;
+}
+function dutyDisplay(person, chiefName){
+  const p = String(person||"").trim() || "—";
+  const c = String(chiefName||"").trim();
+  return c ? `${p} / ${c}` : p;
+}
+
+function applyOverrides(rigObj, startUTC, endUTC, baseAB){
+  const baseName = baseAB==="A" ? rigObj.people.A.name : rigObj.people.B.name;
+  const ovs = rigObj.overrides || [];
+  for(const ov of ovs){
+    const from = jToDateUTC(...ov.fromJ);
+    const to   = jToDateUTC(...ov.toJ);
+    if(endUTC >= from && startUTC <= to){
+      if(ov.forAB === baseAB){
+        return { person: ov.name, type:"جایگزین" };
+      }
+    }
+  }
+  return { person: baseName, type:"اصلی" };
+}
+
+function addOverride(){
+  const rig=document.getElementById("schRig").value;
+  const r=ensureRigShape(rig);
+  const name=document.getElementById("ovName").value.trim();
+  if(!name){ alert("نام جایگزین را وارد کن."); return; }
+  const fromJ=dd_ovFrom.get();
+  const toJ=dd_ovTo.get();
+  const from=jToDateUTC(...fromJ), to=jToDateUTC(...toJ);
+  if(to < from){ alert("تاریخ پایان نمی‌تواند قبل از تاریخ شروع باشد."); return; }
+  const forAB=document.getElementById("ovFor").value;
+  const reason=document.getElementById("ovReason").value;
+  r.overrides = r.overrides || [];
+  r.overrides.push({id: cryptoId(), name, fromJ, toJ, forAB, reason, createdAt: nowISO()});
+  saveDB();
+  document.getElementById("ovName").value="";
+  refreshScheduleView();
+  alert("جایگزین ثبت شد. برای اعمال در برنامه، دوباره «تولید/بروزرسانی برنامه» را بزن.");
+}
+function cryptoId(){
+  return Math.random().toString(16).slice(2)+Math.random().toString(16).slice(2);
+}
+
+function refreshScheduleView(){
+  const rig=document.getElementById("schRig").value || Object.keys(DB.rigs)[0];
+  document.getElementById("schRig").value=rig;
+  const r=ensureRigShape(rig);
+
+  const list=document.getElementById("overrideList");
+  const ovs=r.overrides||[];
+  if(!ovs.length){ list.textContent="هیچ جایگزینی ثبت نشده."; }
+  else{
+    list.innerHTML = ovs.map(ov=>{
+      const who = ov.forAB==="A" ? (r.people.A.name||"A") : (r.people.B.name||"B");
+      return `• ${ov.name} | جایگزینِ ${who} | ${fmtJ(ov.fromJ)} تا ${fmtJ(ov.toJ)} <button class="btn ghost" data-del="${ov.id}" style="padding:4px 8px; font-size:12px;">حذف</button>`;
+    }).join("<br/>");
+    list.querySelectorAll("button[data-del]").forEach(b=>{
+      b.addEventListener("click", ()=>{
+        const id=b.dataset.del;
+        r.overrides = (r.overrides||[]).filter(x=>x.id!==id);
+        saveDB();
+        refreshScheduleView();
+      });
+    });
+  }
+
+  const sched=DB.schedules[rig];
+  const pill=document.getElementById("schInfoPill");
+  const info=document.getElementById("schInfo");
+  const tbody=document.querySelector("#schTable tbody");
+  tbody.innerHTML="";
+  if(!sched){
+    pill.textContent="برنامه ندارد";
+    pill.className="pill warn";
+    info.textContent="برای این دکل هنوز برنامه تولید نشده.";
+    return;
+  }
+  pill.textContent="برنامه موجود";
+  pill.className="pill ok";
+  info.textContent=`شروع برنامه: ${fmtJ(sched.anchorStartJ)} | تعداد دوره‌ها: ${sched.periods.length}`;
+  // نمایش برنامه (با اعمال جایگزین‌ها حتی اگر بخشی از دوره باشد)
+  const ovs2 = (r.overrides||[]).map(ov=>{
+    return {
+      ...ov,
+      from: jToDateUTC(...ov.fromJ),
+      to: jToDateUTC(...ov.toJ)
+    };
+  }).sort((a,b)=> (a.from-b.from));
+
+  function overlapSegments(p){
+    const ps = jToDateUTC(...p.startJ);
+    const pe = jToDateUTC(...p.endJ);
+    // نقاط شکست (start و end+1 و مرزهای override و تغییر شیفت رئیس دستگاه)
+    const cuts = [ps, addDaysUTC(pe,1)];
+    chiefToolChangeCuts(r, ps, pe).forEach(d=>cuts.push(d));
+    ovs2.forEach(ov=>{
+      if(ov.to < ps || ov.from > pe) return;
+      cuts.push(ov.from);
+      cuts.push(addDaysUTC(ov.to,1));
+    });
+    // یکتا و مرتب
+    const uniq = Array.from(new Set(cuts.map(d=>d.getTime()))).sort((a,b)=>a-b).map(t=>new Date(t));
+    const segs=[];
+    for(let i=0;i<uniq.length-1;i++){
+      const s=uniq[i];
+      const eEx=uniq[i+1]; // exclusive
+      const e=addDaysUTC(eEx,-1);
+      if(e < ps || s > pe) continue;
+      const base = whoIsOnDutyBase(r, s);
+      const duty = applyOverrides(r, s, e, base);
+      const chiefDuty = whoIsChiefToolOnDuty(r, s);
+      segs.push({startJ: dateUTCToJ(s), endJ: dateUTCToJ(e), person:duty.person, type:duty.type, chiefTool:chiefDuty.name, chiefToolSlot:chiefDuty.slot});
+    }
+    // ادغام سگمنت‌های پشت‌سرهم با نفر یکسان
+    const merged=[];
+    segs.forEach(x=>{
+      const last=merged[merged.length-1];
+      if(last && last.person===x.person && last.type===x.type && last.chiefTool===x.chiefTool && fmtJ(last.endJ)===fmtJ(dateUTCToJ(addDaysUTC(jToDateUTC(...x.startJ),-1)))){
+        last.endJ = x.endJ;
+      }else{
+        merged.push({...x});
+      }
+    });
+    return merged;
+  }
+
+  let rowN=1;
+  sched.periods.slice(0,120).forEach(p=>{
+    const segs = overlapSegments(p);
+    segs.forEach((s,ix)=>{
+      const tr=document.createElement("tr");
+      tr.innerHTML = `
+        <td>${p.n}${segs.length>1?("."+String(ix+1)):""}</td>
+        <td>${fmtJ(s.startJ)}</td>
+        <td>${fmtJ(s.endJ)}</td>
+        <td>${escapeHTML(dutyDisplay(s.person, s.chiefTool))}</td>
+        <td>${escapeHTML(s.type)}</td>
+      `;
+      tbody.appendChild(tr);
+      rowN++;
+    });
+  });
+}
+
+function addTrainingRow(val={}){
+  const box=document.getElementById("trainings");
+  const id=cryptoId();
+  const row=document.createElement("div");
+  row.className="card";
+  row.style.padding="10px";
+  row.innerHTML=`
+    <div class="row">
+      <div class="field">
+        <label>نوع آموزش</label>
+        <input data-k="type" placeholder="مثلاً: کار با BOP / H2S / ..."/>
+      </div>
+      <div class="field">
+        <label>تعداد نفرات آموزش‌دیده</label>
+        <input data-k="count" type="number" min="0" value="0"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>شماره نامه (اختیاری)</label>
+        <input data-k="letter" placeholder="مثلاً 5467" inputmode="numeric"/>
+      </div>
+      <div class="field">
+        <label>توضیحات (اختیاری)</label>
+        <input data-k="note" placeholder="..." />
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn danger" data-remove="${id}">حذف این آموزش</button>
+    </div>
+  `;
+  row.dataset.rowId=id;
+  box.appendChild(row);
+
+  if(val.type) row.querySelector('[data-k="type"]').value=val.type;
+  if(val.count!=null) row.querySelector('[data-k="count"]').value=val.count;
+  if(val.letter) row.querySelector('[data-k="letter"]').value=val.letter;
+  if(val.note) row.querySelector('[data-k="note"]').value=val.note;
+
+  row.querySelectorAll('input').forEach(inp=>inp.addEventListener("input", checkDuplicates));
+  row.querySelector('button[data-remove]').addEventListener("click", ()=>{
+    row.remove();
+    checkDuplicates();
+  });
+}
+
+
+function addDrillRow(val={}){
+  const box=document.getElementById("drills");
+  const id=cryptoId();
+  const row=document.createElement("div");
+  row.className="card";
+  row.style.padding="10px";
+  row.innerHTML=`
+    <div class="row">
+      <div class="field">
+        <label>نوع مانور</label>
+        <select data-k="type">
+          <option value="">— انتخاب —</option>
+          <option value="امداد و نجات">امداد و نجات</option>
+          <option value="BOP Drill">BOP Drill</option>
+          <option value="H2S">H2S</option>
+          <option value="Fire Drill">Fire Drill</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>شماره نامه</label>
+        <input data-k="letter" placeholder="مثلاً 5467" inputmode="numeric"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>توضیحات (اختیاری)</label>
+        <input data-k="note" placeholder="..."/>
+      </div>
+      <div class="field">
+        <label>&nbsp;</label>
+        <button class="btn danger" data-remove="${id}" style="width:100%;">حذف مانور</button>
+      </div>
+    </div>
+  `;
+  box.appendChild(row);
+
+  if(val.type) row.querySelector('[data-k="type"]').value=val.type;
+  if(val.letter) row.querySelector('[data-k="letter"]').value=val.letter;
+  if(val.note) row.querySelector('[data-k="note"]').value=val.note;
+
+  row.querySelectorAll('input,select').forEach(inp=>inp.addEventListener("input", checkDuplicates));
+  row.querySelector('button[data-remove]').addEventListener("click", ()=>{ row.remove(); checkDuplicates(); });
+}
+
+function addRequestRow(val={}){
+  const box=document.getElementById("requests");
+  const id=cryptoId();
+  const row=document.createElement("div");
+  row.className="card"; row.style.padding="10px";
+  row.innerHTML=`
+    <div class="row">
+      <div class="field">
+        <label>شرح درخواست</label>
+        <input data-k="what" placeholder="مثلاً بادنما / کمربند / ..." />
+      </div>
+      <div class="field">
+        <label>شماره نامه</label>
+        <input data-k="letter" placeholder="مثلاً 5467" inputmode="numeric"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>وضعیت</label>
+        <select data-k="status">
+          <option value="باز">باز</option>
+          <option value="بسته">بسته</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>توضیح (اختیاری)</label>
+        <input data-k="note" placeholder="..." />
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn danger" data-remove="${id}">حذف درخواست</button>
+    </div>
+  `;
+  row.dataset.rowId=id;
+  box.appendChild(row);
+
+  if(val.what) row.querySelector('[data-k="what"]').value=val.what;
+  if(val.letter) row.querySelector('[data-k="letter"]').value=val.letter;
+  if(val.status) row.querySelector('[data-k="status"]').value=val.status;
+  if(val.note) row.querySelector('[data-k="note"]').value=val.note;
+
+  row.querySelectorAll('input,select').forEach(inp=>inp.addEventListener("input", checkDuplicates));
+  row.querySelector('button[data-remove]').addEventListener("click", ()=>{
+    row.remove();
+    checkDuplicates();
+  });
+}
+
+
+function toggleActionPlanCounts(){
+  const v = document.getElementById("apYes")?.value || "";
+  const box = document.getElementById("apCounts");
+  if(!box) return;
+  box.style.display = (v==="yes") ? "" : "none";
+  if(v!=="yes"){
+    document.getElementById("apClose").value = "";
+    document.getElementById("apOpen").value = "";
+  }
+}
+
+function addLetterRow(val={}){
+  const box=document.getElementById("letters");
+  const id=cryptoId();
+  const row=document.createElement("div");
+  row.className="card"; row.style.padding="10px";
+  row.innerHTML=`
+    <div class="row">
+      <div class="field">
+        <label>موضوع/شرح نامه</label>
+        <input data-k="subject" placeholder="مثلاً پیگیری مورد X" />
+      </div>
+      <div class="field">
+        <label>شماره نامه</label>
+        <input data-k="letter" placeholder="مثلاً 5467" inputmode="numeric"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>وضعیت پیگیری</label>
+        <select data-k="status">
+          <option value="درحال پیگیری">درحال پیگیری</option>
+          <option value="بسته شد">بسته شد</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>توضیح (اختیاری)</label>
+        <input data-k="note" placeholder="..." />
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn danger" data-remove="${id}">حذف نامه</button>
+    </div>
+  `;
+  row.dataset.rowId=id;
+  box.appendChild(row);
+
+  if(val.subject) row.querySelector('[data-k="subject"]').value=val.subject;
+  if(val.letter) row.querySelector('[data-k="letter"]').value=val.letter;
+  if(val.status) row.querySelector('[data-k="status"]').value=val.status;
+  if(val.note) row.querySelector('[data-k="note"]').value=val.note;
+
+  row.querySelectorAll('input,select').forEach(inp=>inp.addEventListener("input", checkDuplicates));
+  row.querySelector('button[data-remove]').addEventListener("click", ()=>{
+    row.remove();
+    checkDuplicates();
+  });
+}
+
+function systemTodayUTC(){
+  const now = new Date();
+  return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+}
+function findDefaultEntryPeriod(periods){
+  if(!periods || !periods.length) return null;
+  const today = systemTodayUTC();
+  const current = periods.find(p=>{
+    const s = jToDateUTC(...p.startJ);
+    const e = jToDateUTC(...p.endJ);
+    return today >= s && today <= e;
+  });
+  if(current) return current;
+
+  const sorted = periods.slice().sort((a,b)=>jToDateUTC(...a.startJ)-jToDateUTC(...b.startJ));
+  const beforeOrSame = sorted.filter(p=>jToDateUTC(...p.startJ) <= today).pop();
+  return beforeOrSame || sorted[0];
+}
+function refreshEntrySelectors(opts={}){
+  const rig=document.getElementById("enRig").value || Object.keys(DB.rigs)[0];
+  document.getElementById("enRig").value=rig;
+
+  const periods = (DB.schedules[rig]?.periods)||[];
+  const sel=document.getElementById("enPeriod");
+  const previous = sel.value;
+  sel.innerHTML="";
+  periods.forEach(p=>{
+    const o=document.createElement("option");
+    o.value=p.id;
+    o.textContent=`دوره ${p.n} | ${fmtJ(p.startJ)} تا ${fmtJ(p.endJ)} | ${p.person}`;
+    sel.appendChild(o);
+  });
+
+  const preferCurrent = opts.preferCurrent !== false;
+  const defaultPeriod = preferCurrent ? findDefaultEntryPeriod(periods) : null;
+  const keepPrevious = !preferCurrent && periods.some(p=>p.id===previous);
+  if(keepPrevious) sel.value = previous;
+  else if(defaultPeriod) sel.value = defaultPeriod.id;
+
+  onPeriodChanged({silent:true});
+}
+
+function onPeriodChanged(opts={}){
+  const rig=document.getElementById("enRig").value;
+  const pid=document.getElementById("enPeriod").value;
+  const p = findPeriod(rig, pid);
+  if(!p){
+    document.getElementById("enPerson").value="—";
+    document.getElementById("enPersonType").value="—";
+    clearEntryForm(false);
+    document.getElementById("entrySummary").textContent="برای این دکل هنوز برنامه تولید نشده یا دوره‌ای انتخاب نشده.";
+    return;
+  }
+
+  const saved = DB.entries[pid];
+  document.getElementById("enPerson").value = p.person;
+  document.getElementById("enPersonType").value = p.personType;
+  document.getElementById("entrySummary").innerHTML = `
+    دکل: <b>${p.rig}</b><br/>
+    دوره: <b>${p.n}</b> (${fmtJ(p.startJ)} تا ${fmtJ(p.endJ)})<br/>
+    نفر شیفت: <b>${p.person}</b> (${p.personType})<br/>
+    <span class="small">${saved ? "عملکرد ذخیره‌شده همین دوره بارگذاری شد." : "برای این دوره هنوز عملکردی ثبت نشده؛ فرم آماده ثبت جدید است."}</span>
+  `;
+
+  if(saved) loadEntryIntoForm(saved, {silent:true});
+  else clearEntryForm(false);
+  checkDuplicates();
+}
+
+function findPeriod(rig, pid){
+  const periods = DB.schedules[rig]?.periods || [];
+  return periods.find(x=>x.id===pid);
+}
+
+function collectRows(containerId, mapper){
+  return Array.from(document.getElementById(containerId).children).map(card=>{
+    const get=(k)=>card.querySelector(`[data-k="${k}"]`)?.value?.trim() ?? "";
+    return mapper(get);
+  }).filter(x=>Object.values(x).some(v=>String(v).trim()!==""));
+}
+
+function saveEntry(){
+  const rig=document.getElementById("enRig").value;
+  const pid=document.getElementById("enPeriod").value;
+  const p = findPeriod(rig,pid);
+  if(!p){ alert("یک دوره معتبر انتخاب کن."); return; }
+
+  const entry = {
+    periodId: pid,
+    rig,
+    periodN: p.n,
+    periodStartJ: p.startJ,
+    periodEndJ: p.endJ,
+    person: p.person,
+    personType: p.personType,
+    savedAt: nowISO(),
+
+    trainings: collectRows("trainings", (get)=>({
+      type:get("type"),
+      count: parseInt(get("count")||"0",10),
+      letter:get("letter"),
+      note:get("note")
+    })),
+
+    monthly: {
+      waste: { done: document.getElementById("wasteYes").value, letter: document.getElementById("wasteNo").value.trim(), by: p.person },
+      water: { done: document.getElementById("waterYes").value, letter: document.getElementById("waterNo").value.trim(), by: p.person },
+      committee: { done: document.getElementById("committeeYes").value, letter: document.getElementById("committeeNo").value.trim(), by: p.person },
+      project: { done: document.getElementById("projectYes").value, letter: document.getElementById("projectNo").value.trim(), by: p.person },
+    },
+    drillsList: collectRows("drills", (get)=>({ type:get("type"), letter:get("letter"), note:get("note") })),
+    drills: (function(){
+      const list = collectRows("drills", (get)=>({ type:get("type"), letter:get("letter"), note:get("note") }));
+      const d={fire:0,bop:0,medoc:0,h2s:0};
+      list.forEach(x=>{
+        const t = String(x.type||"").trim().toLowerCase();
+        if(t==="fire drill" || t==="fire" || t==="فایر دریل" || t==="firedrill") d.fire++;
+        else if(t==="bop drill" || t==="bop" || t==="bopdrill") d.bop++;
+        else if(t==="h2s" || t==="h₂s") d.h2s++;
+        else if(t==="امداد و نجات" || t==="مدوک" || t==="medoc" || t==="rescue") d.medoc++; // سازگاری
+        // سایر موارد فعلاً در گزارش شمارش نمی‌شوند
+      });
+      return d;
+    })(),
+equipmentCheck: {
+      done: document.getElementById("eqYes").value,
+      letter: document.getElementById("eqNo").value.trim()
+    },
+    actionPlan: {
+      done: document.getElementById("apYes").value,
+      letter: document.getElementById("apNo").value.trim(),
+      closeCount: parseInt(document.getElementById("apClose").value||"0",10)||0,
+      openCount: parseInt(document.getElementById("apOpen").value||"0",10)||0,
+    },
+
+    requests: collectRows("requests", (get)=>({
+      what:get("what"),
+      letter:get("letter"),
+      status:get("status") || "باز",
+      note:get("note")
+    })),
+
+    letters: collectRows("letters", (get)=>({
+      subject:get("subject"),
+      letter:get("letter"),
+      status:get("status") || "درحال پیگیری",
+      note:get("note")
+    }))
+  };
+
+  DB.entries[pid] = entry;
+  saveDB(true,"ذخیره عملکرد دوره");
+  alert("عملکرد این دوره ذخیره شد.");
+}
+
+function clearEntryForm(keepLists=false){
+  if(!keepLists){
+    document.getElementById("trainings").innerHTML="";
+    document.getElementById("requests").innerHTML="";
+    document.getElementById("letters").innerHTML="";
+    addTrainingRow(); addRequestRow(); addLetterRow();
+  }
+  document.getElementById("wasteYes").value="";
+  document.getElementById("wasteNo").value="";
+  document.getElementById("waterYes").value="";
+  document.getElementById("waterNo").value="";
+  document.getElementById("committeeYes").value="";
+  document.getElementById("committeeNo").value="";
+  document.getElementById("projectYes").value="";
+  document.getElementById("projectNo").value="";
+  document.getElementById("drills").innerHTML="";
+  addDrillRow();
+  document.getElementById("eqYes").value="";
+  document.getElementById("eqNo").value="";
+  document.getElementById("apYes").value="";
+  document.getElementById("apNo").value="";
+  document.getElementById("apClose").value="";
+  document.getElementById("apOpen").value="";
+  toggleActionPlanCounts();
+  checkDuplicates();
+}
+
+function loadEntryIntoForm(e, opts={}){
+  clearEntryForm(false);
+
+  document.getElementById("trainings").innerHTML="";
+  (e.trainings||[]).forEach(t=>addTrainingRow(t));
+  if(!(e.trainings||[]).length) addTrainingRow();
+
+  document.getElementById("wasteYes").value=e.monthly?.waste?.done||"";
+  document.getElementById("wasteNo").value=e.monthly?.waste?.letter||"";
+  document.getElementById("waterYes").value=e.monthly?.water?.done||"";
+  document.getElementById("waterNo").value=e.monthly?.water?.letter||"";
+  document.getElementById("committeeYes").value=e.monthly?.committee?.done||"";
+  document.getElementById("committeeNo").value=e.monthly?.committee?.letter||"";
+  document.getElementById("projectYes").value=e.monthly?.project?.done||"";
+  document.getElementById("projectNo").value=e.monthly?.project?.letter||"";
+
+  document.getElementById("drills").innerHTML="";
+  (e.drillsList||[]).forEach(d=>addDrillRow(d));
+  if(!(e.drillsList||[]).length) addDrillRow();
+
+  document.getElementById("eqYes").value=e.equipmentCheck?.done||"";
+  document.getElementById("eqNo").value=e.equipmentCheck?.letter||"";
+
+  document.getElementById("apYes").value=e.actionPlan?.done||"";
+  document.getElementById("apNo").value=e.actionPlan?.letter||"";
+  document.getElementById("apClose").value=(e.actionPlan?.closeCount ?? "");
+  document.getElementById("apOpen").value=(e.actionPlan?.openCount ?? "");
+  toggleActionPlanCounts();
+
+  document.getElementById("requests").innerHTML="";
+  (e.requests||[]).forEach(r=>addRequestRow(r));
+  if(!(e.requests||[]).length) addRequestRow();
+
+  document.getElementById("letters").innerHTML="";
+  (e.letters||[]).forEach(l=>addLetterRow(l));
+  if(!(e.letters||[]).length) addLetterRow();
+
+  checkDuplicates();
+  if(!opts.silent) alert("رکورد این دوره بارگذاری شد.");
+}
+
+function loadEntryForSelected(){
+  const pid=document.getElementById("enPeriod").value;
+  const e=DB.entries[pid];
+  if(!e){
+    clearEntryForm(false);
+    alert("برای این دوره رکوردی ذخیره نشده. فرم برای ثبت جدید آماده شد.");
+    return;
+  }
+  loadEntryIntoForm(e, {silent:false});
+}
+
+function checkDuplicates(){
+  const inputs = [];
+  ["wasteNo","waterNo","committeeNo","eqNo"].forEach(id=>inputs.push(document.getElementById(id)));
+  document.querySelectorAll("#trainings [data-k='letter'], #drills [data-k='letter'], #requests [data-k='letter'], #letters [data-k='letter']").forEach(inp=>inputs.push(inp));
+  inputs.forEach(i=>i.classList.remove("dup"));
+
+  const map = new Map();
+  inputs.forEach(inp=>{
+    const v=(inp.value||"").trim();
+    if(!v) return;
+    if(!map.has(v)) map.set(v, []);
+    map.get(v).push(inp);
+  });
+
+  let hasDup=false;
+  for(const arr of map.values()){
+    if(arr.length>1){
+      hasDup=true;
+      arr.forEach(inp=>inp.classList.add("dup"));
+    }
+  }
+  document.getElementById("dupHint").innerHTML = hasDup
+    ? "⚠️ برخی شماره نامه‌ها تکراری هستند (کادر زرد). اگر عمدی نیست، بررسی کن."
+    : "اگر شماره نامه تکراری باشد، فیلد با کادر زرد مشخص می‌شود (فقط هشدار است، خطا نیست).";
+}
+
+function onRepType(){
+  const t=document.getElementById("repType").value;
+  document.getElementById("repPeriodBox").style.display = (t==="period")?"":"none";
+  document.getElementById("repCycleBox").style.display  = (t==="cycle")?"":"none";
+  document.getElementById("repJMonthBox").style.display = (t==="jmonth")?"":"none";
+}
+
+function refreshReportSelectors(){
+  const rig1=document.getElementById("repRig1").value || Object.keys(DB.rigs)[0];
+  document.getElementById("repRig1").value=rig1;
+  const periods=(DB.schedules[rig1]?.periods)||[];
+  const sel=document.getElementById("repPeriod");
+  sel.innerHTML="";
+  periods.forEach(p=>{
+    const o=document.createElement("option");
+    o.value=p.id;
+    o.textContent=`دوره ${p.n} | ${fmtJ(p.startJ)} تا ${fmtJ(p.endJ)} | ${p.person}`;
+    sel.appendChild(o);
+  });
+}
+
+function buildReport(){
+  const type=document.getElementById("repType").value;
+  if(type==="period") return buildPeriodReport();
+  if(type==="cycle") return buildCycleReport();
+  if(type==="jmonth") return buildJMonthReport();
+}
+
+function rigHeaderHTML(rigName){
+  const r=ensureRigShape(rigName);
+  return `
+    <h3>پایش پرسنل ایمنی منطقه ۹</h3>
+    <div class="muted">
+      <b>لوکیشن:</b> ${escapeHTML(r.loc||"—")} &nbsp; | &nbsp;
+      <b>عملیات:</b> ${escapeHTML(r.op||"—")}<br/>
+      <b>دکل:</b> ${escapeHTML(rigName)} &nbsp; | &nbsp;
+      <b>رئیس دستگاه ۱:</b> ${escapeHTML((r.chiefTool1??r.chiefTool)||"—")} &nbsp; | &nbsp;
+      <b>رئیس دستگاه ۲:</b> ${escapeHTML(r.chiefTool2||"—")}<br/>
+      <b>رئیس منطقه:</b> ${escapeHTML(r.regionChief||"—")} &nbsp; | &nbsp;
+      <b>رئیس منطقه خدمات:</b> ${escapeHTML(r.serviceRegionChief||"—")}<br/>
+      <b>رئیس عملیات:</b> ${escapeHTML(r.chiefOps||"—")} &nbsp; | &nbsp;
+      <b>مدیر عملیات:</b> ${escapeHTML(r.managerOps||"—")}
+    </div>
+  `;
+}
+
+function buildPeriodReport(){
+  const rig=document.getElementById("repRig1").value;
+  const pid=document.getElementById("repPeriod").value;
+  const p=findPeriod(rig,pid);
+  if(!p){ alert("دوره معتبر انتخاب نشده."); return; }
+  const e=DB.entries[pid];
+
+  const out=document.getElementById("reportOut");
+  out.innerHTML = `
+    ${rigHeaderHTML(rig)}
+    <div class="muted" style="margin-top:8px;">
+      <b>بازه:</b> ${fmtJ(p.startJ)} تا ${fmtJ(p.endJ)} &nbsp; | &nbsp;
+      <b>نفر شیفت:</b> ${escapeHTML(p.person)} (${escapeHTML(p.personType)})
+      ${e ? `&nbsp; | &nbsp; <b>تاریخ ثبت:</b> ${new Date(e.savedAt).toLocaleString('fa-IR')}` : `&nbsp; | &nbsp; <span style="color:#b00;"><b>رکوردی ثبت نشده</b></span>`}
+    </div>
+
+    ${e ? renderEntryTables(e) : `<div class="muted" style="margin-top:12px;">برای این دوره هنوز عملکرد ثبت نشده است.</div>`}
+
+    <div class="sig"><div>سرپرست ایمنی منطقه ۹: محمد کلاه‌کج</div></div>
+  `;
+}
+
+function buildCycleReport(){
+  const rig=document.getElementById("repRig2").value;
+  const startJ=dd_repCycleStart.get();
+  const startUTC=jToDateUTC(...startJ);
+
+  const periods = ((DB.schedules && DB.schedules[rig] && DB.schedules[rig].periods) ? DB.schedules[rig].periods : []).slice()
+    .sort((a,b)=> jToDateUTC(...a.startJ) - jToDateUTC(...b.startJ));
+
+  if(!periods.length){
+    const out=document.getElementById("reportOut");
+    out.innerHTML = `
+      ${rigHeaderHTML(rig)}
+      <div class="muted" style="margin-top:10px; color:#b00;">
+        برای این دکل هنوز «برنامه اقماری» تولید نشده است. ابتدا در تب «برنامه اقماری» برنامه را تولید کن.
+      </div>
+      <div class="sig"><div>سرپرست ایمنی منطقه ۹: محمد کلاه‌کج</div></div>
+    `;
+    return;
+  }
+
+  // به جای تکیه بر «تطابق دقیق تاریخ»، نزدیک‌ترین دوره را انتخاب می‌کنیم
+  let idx = 0;
+  for(let i=0;i<periods.length;i++){
+    const s = jToDateUTC(...periods[i].startJ);
+    if(s <= startUTC) idx = i;
+    if(s > startUTC) break;
+  }
+  const p1 = periods[idx];
+  const p2 = periods[idx+1] || null;
+
+  const e1 = DB.entries[p1.id];
+  const e2 = p2 ? DB.entries[p2.id] : null;
+
+  const out=document.getElementById("reportOut");
+  const endJ = p2 ? p2.endJ : p1.endJ;
+
+  out.innerHTML = `
+    ${rigHeaderHTML(rig)}
+    <div class="muted" style="margin-top:8px;">
+      <b>چرخه ۲۸ روزه:</b> ${fmtJ(startJ)} تا ${fmtJ(endJ)}<br/>
+      <span class="muted">این گزارش جمع دو دوره ۱۴ روزه است.</span>
+    </div>
+
+    <div style="margin-top:10px;">
+      <table>
+        <thead><tr><th>دوره</th><th>نفر</th><th>بازه</th><th>وضعیت ثبت</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>دوره اول</td>
+            <td>${escapeHTML(p1?.person||"—")}</td>
+            <td>${p1 ? `${fmtJ(p1.startJ)} تا ${fmtJ(p1.endJ)}` : "—"}</td>
+            <td>${e1 ? "ثبت شده" : "ثبت نشده"}</td>
+          </tr>
+          <tr>
+            <td>دوره دوم</td>
+            <td>${escapeHTML(p2?.person||"—")}</td>
+            <td>${p2 ? `${fmtJ(p2.startJ)} تا ${fmtJ(p2.endJ)}` : "—"}</td>
+            <td>${e2 ? "ثبت شده" : "ثبت نشده"}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    ${renderCycleSummary([e1,e2].filter(Boolean))}
+
+    <div class="sig"><div>سرپرست ایمنی منطقه ۹: محمد کلاه‌کج</div></div>
+  `;
+}
+
+function buildJMonthReport(){
+  const rig=document.getElementById("repRig3").value;
+  const jy=parseInt(document.getElementById("repJYear").value,10);
+  const jm=parseInt(document.getElementById("repJMonth").value,10);
+  const scope=document.getElementById("repJMonthScope").value;
+
+  const fromUTC = jToDateUTC(jy,jm,1);
+  const toUTC = addDaysUTC(fromUTC, jalaliMonthDays(jy,jm));
+
+  const periods = (DB.schedules[rig]?.periods)||[];
+  const overlap = periods.filter(p=>{
+    const s=jToDateUTC(...p.startJ);
+    const e=addDaysUTC(jToDateUTC(...p.endJ),1);
+    return (e > fromUTC && s < toUTC);
+  });
+
+  const entries = overlap.map(p=>DB.entries[p.id]).filter(Boolean);
+
+  const out=document.getElementById("reportOut");
+  out.innerHTML = `
+    ${rigHeaderHTML(rig)}
+    <div class="muted" style="margin-top:8px;">
+      <b>گزارش ماه شمسی:</b> ${monthNames[jm-1]} ${jy}
+      &nbsp; | &nbsp; بازه: ${fmtJ([jy,jm,1])} تا ${fmtJ(dateUTCToJ(addDaysUTC(toUTC,-1)))}<br/>
+      <span class="muted">تعداد دوره‌های همپوشان: ${overlap.length} | تعداد رکوردهای ثبت‌شده: ${entries.length}</span>
+    </div>
+
+    ${scope==="monthlyOnly" ? renderJMonthMonthlyOnly(entries) : renderCycleSummary(entries)}
+
+    <div class="sig"><div>سرپرست ایمنی منطقه ۹: محمد کلاه‌کج</div></div>
+  `;
+}
+
+function renderEntryTables(e){
+  const trRows = (e.trainings||[]).map(t=>`
+    <tr><td>${escapeHTML(t.type||"—")}</td><td>${t.count??0}</td><td>${escapeHTML(t.letter||"—")}</td><td>${escapeHTML(t.note||"")}</td></tr>
+  `).join("") || `<tr><td colspan="4">—</td></tr>`;
+
+  const reqRows = (e.requests||[]).map(r=>`
+    <tr><td>${escapeHTML(r.what||"—")}</td><td>${escapeHTML(r.letter||"—")}</td><td>${escapeHTML(r.status||"—")}</td><td>${escapeHTML(r.note||"")}</td></tr>
+  `).join("") || `<tr><td colspan="4">—</td></tr>`;
+
+  const letRows = (e.letters||[]).map(l=>`
+    <tr><td>${escapeHTML(l.subject||"—")}</td><td>${escapeHTML(l.letter||"—")}</td><td>${escapeHTML(l.status||"—")}</td><td>${escapeHTML(l.note||"")}</td></tr>
+  `).join("") || `<tr><td colspan="4">—</td></tr>`;
+
+  return `
+    <h3 style="margin-top:14px;">آموزش‌ها</h3>
+    <table>
+      <thead><tr><th>نوع</th><th>نفرات آموزش‌دیده</th><th>شماره نامه</th><th>توضیح</th></tr></thead>
+      <tbody>${trRows}</tbody>
+    </table>
+
+    <h3 style="margin-top:14px;">گزارش‌های ماهانه (ثبت در این دوره)</h3>
+    <table>
+      <thead><tr><th>آیتم</th><th>وضعیت</th><th>شماره نامه</th><th>انجام‌دهنده</th></tr></thead>
+      <tbody>
+        <tr><td>دفع پسماند</td><td>${yesNo(e.monthly?.waste?.done)}</td><td>${escapeHTML(e.monthly?.waste?.letter||"—")}</td><td>${escapeHTML(e.monthly?.waste?.by||"—")}</td></tr>
+        <tr><td>آب مصرفی</td><td>${yesNo(e.monthly?.water?.done)}</td><td>${escapeHTML(e.monthly?.water?.letter||"—")}</td><td>${escapeHTML(e.monthly?.water?.by||"—")}</td></tr>
+        <tr><td>کمیته حفاظت فنی</td><td>${yesNo(e.monthly?.committee?.done)}</td><td>${escapeHTML(e.monthly?.committee?.letter||"—")}</td><td>${escapeHTML(e.monthly?.committee?.by||"—")}</td></tr>
+        <tr><td>گزارش ماهانه پروژه</td><td>${yesNo(e.monthly?.project?.done)}</td><td>${escapeHTML(e.monthly?.project?.letter||"—")}</td><td>${escapeHTML(e.monthly?.project?.by||"—")}</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:14px;">مانورها</h3>
+    <table>
+      <thead><tr><th>Fire</th><th>BOP</th><th>Medoc</th><th>H2S</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>${e.drills?.fire ?? 0}</td>
+          <td>${e.drills?.bop ?? 0}</td>
+          <td>${e.drills?.medoc ?? 0}</td>
+          <td>${e.drills?.h2s ?? 0}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:14px;">بررسی تجهیزات ایمنی</h3>
+    <table>
+      <thead><tr><th>انجام شد؟</th><th>شماره نامه/گزارش</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>${yesNo(e.equipmentCheck?.done)}</td>
+          <td>${escapeHTML(e.equipmentCheck?.letter||"—")}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <h3 style="margin-top:14px;">پیگیری Action Plan</h3>
+    <table>
+      <thead><tr><th>پیگیری انجام شد؟</th><th>Close</th><th>Open</th><th>شماره نامه/گزارش</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>${yesNo(e.actionPlan?.done)}</td>
+          <td>${e.actionPlan?.closeCount ?? 0}</td>
+          <td>${e.actionPlan?.openCount ?? 0}</td>
+          <td>${escapeHTML(e.actionPlan?.letter||"—")}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <h3 style="margin-top:14px;">درخواست‌ها</h3>
+    <table>
+      <thead><tr><th>شرح</th><th>شماره نامه</th><th>وضعیت</th><th>توضیح</th></tr></thead>
+      <tbody>${reqRows}</tbody>
+    </table>
+
+    <h3 style="margin-top:14px;">نامه‌های پیگیری</h3>
+    <table>
+      <thead><tr><th>موضوع</th><th>شماره نامه</th><th>وضعیت</th><th>توضیح</th></tr></thead>
+      <tbody>${letRows}</tbody>
+    </table>
+  `;
+}
+
+function renderCycleSummary(entries){
+  if(!entries.length) return `<div class="muted" style="margin-top:12px;">هیچ رکوردی در این بازه ثبت نشده.</div>`;
+
+  const totalTrainingsRaw = entries.flatMap(e=>e.trainings||[]);
+  // فیلتر ردیف‌های خالی (اگر کاربر هیچ آموزشی وارد نکرده باشد ممکن است یک ردیف خالی ذخیره شده باشد)
+  const totalTrainings = totalTrainingsRaw.filter(t=>{
+    const ty = String(t.type||"").trim();
+    const le = String(t.letter||"").trim();
+    const cn = parseInt(t.count||0,10)||0;
+    return (ty || le || cn>0);
+  });
+  const totalTrainees = totalTrainings.reduce((s,t)=>s+(parseInt(t.count||0,10)||0),0);
+
+  const drills = entries.reduce((acc,e)=>{
+    acc.fire += e.drills?.fire||0;
+    acc.bop  += e.drills?.bop||0;
+    acc.med  += e.drills?.medoc||0;
+    acc.h2s  += e.drills?.h2s||0;
+    return acc;
+  }, {fire:0,bop:0,med:0,h2s:0});
+
+  const drillDetailRows = entries.map(e=>`
+    <tr>
+      <td>${escapeHTML(e.person||"—")}</td>
+      <td>${fmtJ(e.periodStartJ)} تا ${fmtJ(e.periodEndJ)}</td>
+      <td>${e.drills?.fire||0}</td>
+      <td>${e.drills?.bop||0}</td>
+      <td>${e.drills?.medoc||0}</td>
+      <td>${e.drills?.h2s||0}</td>
+    </tr>
+  `).join("");
+
+  const equipRows = entries.map(e=>`
+    <tr>
+      <td>${escapeHTML(e.person||"—")}</td>
+      <td>${fmtJ(e.periodStartJ)} تا ${fmtJ(e.periodEndJ)}</td>
+      <td>${yesNo(e.equipmentCheck?.done)}</td>
+      <td>${escapeHTML(e.equipmentCheck?.letter||"—")}</td>
+    </tr>
+  `).join("");
+
+  const allRequests = entries.flatMap(e=>(e.requests||[]).map(r=>({...r, person:e.person, startJ:e.periodStartJ, endJ:e.periodEndJ})))
+    .filter(r=> String(r.what||"").trim() || String(r.letter||"").trim() || String(r.status||"").trim() || String(r.note||"").trim());
+
+  const allLetters = entries.flatMap(e=>(e.letters||[]).map(l=>({...l, person:e.person, startJ:e.periodStartJ, endJ:e.periodEndJ})))
+    .filter(l=> String(l.subject||"").trim() || String(l.letter||"").trim() || String(l.status||"").trim() || String(l.note||"").trim());
+
+  const monthlyRows = entries.map(e=>`
+    <tr>
+      <td>${escapeHTML(e.person)}</td>
+      <td>${fmtJ(e.periodStartJ)} تا ${fmtJ(e.periodEndJ)}</td>
+      <td>${yesNo(e.monthly?.waste?.done)} (${escapeHTML(e.monthly?.waste?.letter||"—")})</td>
+      <td>${yesNo(e.monthly?.water?.done)} (${escapeHTML(e.monthly?.water?.letter||"—")})</td>
+      <td>${yesNo(e.monthly?.committee?.done)} (${escapeHTML(e.monthly?.committee?.letter||"—")})</td>
+    </tr>
+  `).join("");
+
+  return `
+    <h3 style="margin-top:14px;">جمع‌بندی</h3>
+    <table>
+      <thead><tr><th>تعداد آموزش‌ها</th><th>جمع نفرات آموزش‌دیده</th><th>Fire</th><th>BOP</th><th>Medoc</th><th>H2S</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>${totalTrainings.length}</td>
+          <td>${totalTrainees}</td>
+          <td>${drills.fire}</td>
+          <td>${drills.bop}</td>
+          <td>${drills.med}</td>
+          <td>${drills.h2s}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:14px;">جزئیات آیتم‌های ماهانه (چه کسی انجام داد)</h3>
+    <table>
+      <thead><tr><th>کارشناس</th><th>بازه</th><th>پسماند</th><th>آب</th><th>کمیته</th></tr></thead>
+      <tbody>${monthlyRows}</tbody>
+    </table>
+
+
+    ${
+      totalTrainings.length ? `
+        <h3 style="margin-top:14px;">آموزش‌ها (لیست)</h3>
+        <table>
+          <thead><tr><th>نوع</th><th>نفرات</th><th>شماره نامه</th></tr></thead>
+          <tbody>
+            ${totalTrainings.map(t=>`<tr><td>${escapeHTML(t.type||"—")}</td><td>${(parseInt(t.count||0,10)||0)}</td><td>${escapeHTML(t.letter||"—")}</td></tr>`).join("")}
+          </tbody>
+        </table>
+      ` : ``
+    }
+  
+    ${
+      (drills.fire||drills.bop||drills.med||drills.h2s) ? `
+        <h3 style="margin-top:14px;">مانورها (به تفکیک دوره)</h3>
+        <table>
+          <thead><tr><th>کارشناس</th><th>بازه</th><th>Fire</th><th>BOP</th><th>Medoc</th><th>H2S</th></tr></thead>
+          <tbody>${drillDetailRows}</tbody>
+        </table>
+      ` : ``
+    }
+
+    ${
+      entries.some(e=> (e.equipmentCheck && (e.equipmentCheck.done==="yes" || e.equipmentCheck.done==="no" || String(e.equipmentCheck.letter||"").trim()))) ? `
+        <h3 style="margin-top:14px;">بررسی تجهیزات ایمنی (هر ۱۴ روز)</h3>
+        <table>
+          <thead><tr><th>کارشناس</th><th>بازه</th><th>انجام شد؟</th><th>شماره نامه</th></tr></thead>
+          <tbody>${equipRows}</tbody>
+        </table>
+      
+    ${
+      entries.some(e=> (e.actionPlan && (e.actionPlan.done==="yes" || e.actionPlan.done==="no" || (e.actionPlan.closeCount||0)>0 || (e.actionPlan.openCount||0)>0 || String(e.actionPlan.letter||"").trim()))) ? `
+        <h3 style="margin-top:14px;">پیگیری Action Plan</h3>
+        <table>
+          <thead><tr><th>کارشناس</th><th>بازه</th><th>پیگیری انجام شد؟</th><th>Close</th><th>Open</th><th>شماره نامه</th></tr></thead>
+          <tbody>
+            ${entries.map(e=>`
+              <tr>
+                <td>${escapeHTML(e.person||"—")}</td>
+                <td>${fmtJ(e.periodStartJ)} تا ${fmtJ(e.periodEndJ)}</td>
+                <td>${yesNo(e.actionPlan?.done)}</td>
+                <td>${e.actionPlan?.closeCount ?? 0}</td>
+                <td>${e.actionPlan?.openCount ?? 0}</td>
+                <td>${escapeHTML(e.actionPlan?.letter||"—")}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      ` : ``
+    }
+
+` : ``
+    }
+
+    ${
+      allRequests.length ? `
+        <h3 style="margin-top:14px;">درخواست‌ها</h3>
+        <table>
+          <thead><tr><th>کارشناس</th><th>بازه</th><th>شرح</th><th>وضعیت</th><th>شماره نامه</th><th>توضیح</th></tr></thead>
+          <tbody>
+            ${allRequests.map(r=>`<tr><td>${escapeHTML(r.person||"—")}</td><td>${fmtJ(r.startJ)} تا ${fmtJ(r.endJ)}</td><td>${escapeHTML(r.what||"—")}</td><td>${escapeHTML(r.status||"—")}</td><td>${escapeHTML(r.letter||"—")}</td><td>${escapeHTML(r.note||"")}</td></tr>`).join("")}
+          </tbody>
+        </table>
+      ` : ``
+    }
+
+    ${
+      allLetters.length ? `
+        <h3 style="margin-top:14px;">نامه‌های پیگیری</h3>
+        <table>
+          <thead><tr><th>کارشناس</th><th>بازه</th><th>موضوع</th><th>وضعیت</th><th>شماره نامه</th><th>توضیح</th></tr></thead>
+          <tbody>
+            ${allLetters.map(l=>`<tr><td>${escapeHTML(l.person||"—")}</td><td>${fmtJ(l.startJ)} تا ${fmtJ(l.endJ)}</td><td>${escapeHTML(l.subject||"—")}</td><td>${escapeHTML(l.status||"—")}</td><td>${escapeHTML(l.letter||"—")}</td><td>${escapeHTML(l.note||"")}</td></tr>`).join("")}
+          </tbody>
+        </table>
+      ` : ``
+    }
+
+  `;
+
+}
+
+function renderJMonthMonthlyOnly(entries){
+  if(!entries.length) return `<div class="muted" style="margin-top:12px;">هیچ رکوردی در این ماه ثبت نشده.</div>`;
+  const rows = entries.map(e=>`
+    <tr>
+      <td>${escapeHTML(e.person)}</td>
+      <td>${fmtJ(e.periodStartJ)} تا ${fmtJ(e.periodEndJ)}</td>
+      <td>${yesNo(e.monthly?.waste?.done)} (${escapeHTML(e.monthly?.waste?.letter||"—")})</td>
+      <td>${yesNo(e.monthly?.water?.done)} (${escapeHTML(e.monthly?.water?.letter||"—")})</td>
+      <td>${yesNo(e.monthly?.committee?.done)} (${escapeHTML(e.monthly?.committee?.letter||"—")})</td>
+    </tr>
+  `).join("");
+  return `
+    <h3 style="margin-top:14px;">آیتم‌های ماهانه (در رکوردهای همپوشان با این ماه)</h3>
+    <table>
+      <thead><tr><th>کارشناس</th><th>بازه</th><th>پسماند</th><th>آب</th><th>کمیته</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
+}
+
+function escapeHTML(s){
+  return String(s??"").replace(/[&<>"']/g, (m)=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
+}
+
+async function sha256Hex(str){
+  const enc = new TextEncoder();
+  const buf = await crypto.subtle.digest("SHA-256", enc.encode(str));
+  const arr = Array.from(new Uint8Array(buf));
+  return arr.map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+function isSixDigitPin(pin){
+  return /^\d{6}$/.test(String(pin||"").trim());
+}
+function isDeleteUnlocked(){
+  const until = parseInt(localStorage.getItem(DELETE_UNLOCK_UNTIL_KEY) || "0", 10);
+  return Date.now() < until;
+}
+
+
+
+
+/* ===== Incidents ===== */
+let dd_incDate;
+function addIncident(){
+  const rig = document.getElementById("incRig").value;
+  const type = document.getElementById("incType").value;
+  const person = document.getElementById("incPerson").value.trim();
+  const note = document.getElementById("incNote").value.trim();
+  const status = document.getElementById("incStatus").value;
+  if(!rig){ alert("دکل را انتخاب کن."); return; }
+  if(!person){ alert("نام حادثه‌دیده را وارد کن."); return; }
+  const dateJ = dd_incDate.get();
+  const item = { id: cryptoId(), rig, type, person, dateJ, note, status, createdAt: nowISO() };
+  if(!DB.incidents) DB.incidents = [];
+  DB.incidents.push(item);
+  saveDB(true,"ثبت حادثه");
+  document.getElementById("incPerson").value="";
+  document.getElementById("incNote").value="";
+  renderIncidents();
+}
+function renderIncidents(){
+  const out = document.getElementById("incOut");
+  const rig = document.getElementById("incRig").value;
+  if(!rig){
+    out.innerHTML = '<div class="muted">یک دکل انتخاب کن.</div>';
+    return;
+  }
+  const items = (DB.incidents||[]).filter(x=>x.rig===rig).sort((a,b)=> (b.createdAt||"").localeCompare(a.createdAt||""));
+  if(!items.length){
+    out.innerHTML = `${rigHeaderHTML(rig)}<div class="muted" style="margin-top:10px;">برای این دکل هنوز حادثه‌ای ثبت نشده.</div>
+      <div class="sig"><div>سرپرست ایمنی منطقه ۹: محمد کلاه‌کج</div></div>`;
+    return;
+  }
+  const rows = items.map(it=>`
+    <tr>
+      <td>${escapeHTML(it.type)}</td>
+      <td>${escapeHTML(it.person)}</td>
+      <td>${fmtJ(it.dateJ)}</td>
+      <td>${escapeHTML(it.status||"—")}</td>
+      <td>${escapeHTML(it.note||"")}</td>
+      <td><button class="btn danger" data-del-inc="${escapeHTML(it.id)}" style="padding:6px 10px; font-size:12px;">حذف</button></td>
+    </tr>
+  `).join("");
+  out.innerHTML = `
+    ${rigHeaderHTML(rig)}
+    <div class="muted" style="margin-top:8px;"><b>تعداد:</b> ${items.length}</div>
+    <table style="margin-top:10px;">
+      <thead><tr><th>نوع</th><th>نام حادثه‌دیده</th><th>تاریخ</th><th>وضعیت</th><th>توضیح</th><th>حذف</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="sig"><div>سرپرست ایمنی منطقه ۹: محمد کلاه‌کج</div></div>
+  `;
+  out.querySelectorAll("button[data-del-inc]").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      const id=b.dataset.delInc;
+      if(!confirm("این حادثه حذف شود؟")) return;
+      DB.incidents = (DB.incidents||[]).filter(x=>x.id!==id);
+      saveDB(true,"حذف حادثه");
+      renderIncidents();
+    });
+  });
+}
+/* ===== Follow-ups (Letters & Requests) ===== */
+function normalizeStatus(s){
+  const x = String(s||"").trim();
+  return x || "";
+}
+function isOpenStatus(s){
+  const x = normalizeStatus(s);
+  return (x.includes("پیگیری") || x==="باز" || x.includes("درحال"));
+}
+function collectFollowupsForRig(rig){
+  const all = [];
+  const entries = DB.entries || {};
+  Object.keys(entries).forEach(pid=>{
+    const e = entries[pid];
+    if(!e || e.rig !== rig) return;
+
+    (e.letters||[]).forEach(l=>{
+      const letterNo = (l.letter||"").trim();
+      const subj = (l.subject||"").trim();
+      const st = normalizeStatus(l.status||"");
+      if(!subj && !letterNo && !st) return;
+      all.push({
+        kind:"نامه پیگیری",
+        subject: subj || "—",
+        letter: letterNo || "—",
+        status: st || "—",
+        periodN: e.periodN,
+        startJ: e.periodStartJ,
+        endJ: e.periodEndJ,
+        savedAt: e.savedAt || ""
+      });
+    });
+
+    (e.requests||[]).forEach(r=>{
+      const what = (r.what||"").trim();
+      const st = normalizeStatus(r.status||"");
+      if(!what && !st) return;
+      all.push({
+        kind:"درخواست",
+        subject: what || "—",
+        letter: (r.letter||"").trim() || "—",
+        status: st || "—",
+        periodN: e.periodN,
+        startJ: e.periodStartJ,
+        endJ: e.periodEndJ,
+        savedAt: e.savedAt || ""
+      });
+    });
+  });
+  return all;
+}
+function renderFollowups(){
+  const out = document.getElementById("fuOut");
+  const rigSel = document.getElementById("fuRig");
+  const rig = rigSel ? rigSel.value : "";
+  if(!rig){
+    out.innerHTML = '<div class="muted">ابتدا حداقل یک دکل تعریف کن (تب «دکل‌ها و اطلاعات ثابت») یا یک دکل انتخاب کن.</div>';
+    return;
+  }
+  const openOnly = document.getElementById("fuOpenOnly").value === "yes";
+  const q = (document.getElementById("fuSearch").value||"").trim().toLowerCase();
+  const sort = document.getElementById("fuSort").value;
+
+  let items = collectFollowupsForRig(rig).filter(it=>{
+    if(openOnly && !isOpenStatus(it.status)) return false;
+    if(!q) return true;
+    const hay = `${it.kind} ${it.subject} ${it.letter} ${it.status} ${it.periodN} ${fmtJ(it.startJ)} ${fmtJ(it.endJ)}`.toLowerCase();
+    return hay.includes(q);
+  });
+
+  if(sort==="new") items.sort((a,b)=> (b.savedAt||"").localeCompare(a.savedAt||""));
+  if(sort==="old") items.sort((a,b)=> (a.savedAt||"").localeCompare(b.savedAt||""));
+  if(sort==="letter") items.sort((a,b)=> String(a.letter).localeCompare(String(b.letter), 'fa'));
+
+  if(!items.length){
+    out.innerHTML = `${rigHeaderHTML(rig)}<div class="muted" style="margin-top:10px;">موردی برای نمایش پیدا نشد.</div>`;
+    return;
+  }
+
+  const rows = items.map(it=>`
+    <tr>
+      <td>${escapeHTML(it.kind)}</td>
+      <td>${escapeHTML(it.subject)}</td>
+      <td>${escapeHTML(it.letter)}</td>
+      <td>${escapeHTML(it.status)}</td>
+      <td>دوره ${escapeHTML(String(it.periodN||"—"))}<br/><span class="muted">${fmtJ(it.startJ)} تا ${fmtJ(it.endJ)}</span></td>
+    </tr>
+  `).join("");
+
+  out.innerHTML = `
+    ${rigHeaderHTML(rig)}
+    <div class="muted" style="margin-top:8px;">
+      <b>لیست پیگیری‌ها:</b> ${openOnly ? "فقط موارد باز" : "همه موارد"} | تعداد: ${items.length}
+    </div>
+    <table style="margin-top:10px;">
+      <thead><tr><th>نوع</th><th>موضوع/شرح</th><th>شماره نامه</th><th>وضعیت</th><th>ارجاع</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="sig"><div>سرپرست ایمنی منطقه ۹: محمد کلاه‌کج</div></div>
+  `;
+}
+
+/* ===== Leaves (based on Overrides) ===== */
+function weeksBetweenJ(fromJ, toJ){
+  const a = jToDateUTC(...fromJ);
+  const b = jToDateUTC(...toJ);
+  const days = Math.floor((b - a) / (24*3600*1000)) + 1;
+  const weeks = Math.ceil(days / 7);
+  return {days, weeks};
+}
+function getPersonNameByAB(rigObj, ab){
+  try{
+    return ab==="A" ? (rigObj.people?.A?.name||"A") : (rigObj.people?.B?.name||"B");
+  }catch(e){ return ab; }
+}
+function buildLeavePersonOptions(rig){
+  const r = (DB.rigs||{})[rig];
+  const sel = document.getElementById("lvPerson");
+  if(!sel || !r) return;
+  sel.innerHTML = "";
+  const opts = [
+    {value:"A", label:`کارشناس A: ${getPersonNameByAB(r,"A")}`},
+    {value:"B", label:`کارشناس B: ${getPersonNameByAB(r,"B")}`}
+  ];
+  opts.forEach(o=>{
+    const op=document.createElement("option");
+    op.value=o.value; op.textContent=o.label;
+    sel.appendChild(op);
+  });
+}
+function collectLeaves(rig, forAB){
+  const r = (DB.rigs||{})[rig];
+  const ovs = (r && r.overrides) ? r.overrides : [];
+  return ovs
+    .filter(ov=>ov.forAB===forAB)
+    .map(ov=>{
+      const w = weeksBetweenJ(ov.fromJ, ov.toJ);
+      return {
+        reason: ov.reason || "جایگزینی",
+        fromJ: ov.fromJ,
+        toJ: ov.toJ,
+        days: w.days,
+        weeks: w.weeks,
+        replacement: ov.name || "—",
+        createdAt: ov.createdAt || ""
+      };
+    });
+}
+function renderLeaves(){
+  const out = document.getElementById("lvOut");
+  const rigSel = document.getElementById("lvRig");
+  const personSel = document.getElementById("lvPerson");
+  const rig = rigSel ? rigSel.value : "";
+  if(!rig){
+    out.innerHTML = '<div class="muted">ابتدا حداقل یک دکل تعریف کن یا یک دکل انتخاب کن.</div>';
+    return;
+  }
+  if(!personSel || !personSel.value){
+    buildLeavePersonOptions(rig);
+  }
+  const forAB = (document.getElementById("lvPerson")||{}).value || "A";
+  const onlyLeave = (document.getElementById("lvOnlyLeave").value === "yes");
+  const q = (document.getElementById("lvSearch").value||"").trim().toLowerCase();
+
+  const personName = getPersonNameByAB((DB.rigs||{})[rig], forAB);
+  let items = collectLeaves(rig, forAB);
+
+  if(onlyLeave){
+    items = items.filter(x => String(x.reason||"").includes("مرخصی"));
+  }
+  if(q){
+    items = items.filter(x=>{
+      const hay = `${x.reason} ${x.replacement} ${fmtJ(x.fromJ)} ${fmtJ(x.toJ)} ${x.weeks} ${x.days}`.toLowerCase();
+      return hay.includes(q);
+    });
+  }
+  items.sort((a,b)=> (b.createdAt||"").localeCompare(a.createdAt||""));
+
+  if(!items.length){
+    out.innerHTML = `${rigHeaderHTML(rig)}
+      <div class="muted" style="margin-top:10px;">
+        برای <b>${escapeHTML(personName)}</b> موردی ثبت نشده.
+      </div>
+      <div class="sig"><div>سرپرست ایمنی منطقه ۹: محمد کلاه‌کج</div></div>
+    `;
+    return;
+  }
+
+  const rows = items.map(it=>`
+    <tr>
+      <td>${escapeHTML(it.reason)}</td>
+      <td>${fmtJ(it.fromJ)} تا ${fmtJ(it.toJ)}</td>
+      <td>${it.days}</td>
+      <td>${it.weeks}</td>
+      <td>${escapeHTML(it.replacement)}</td>
+    </tr>
+  `).join("");
+
+  out.innerHTML = `
+    ${rigHeaderHTML(rig)}
+    <div class="muted" style="margin-top:8px;">
+      <b>کارشناس:</b> ${escapeHTML(personName)} | <b>تعداد موارد:</b> ${items.length}
+    </div>
+    <table style="margin-top:10px;">
+      <thead><tr><th>نوع</th><th>بازه</th><th>روز</th><th>هفته</th><th>جایگزین</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="sig"><div>سرپرست ایمنی منطقه ۹: محمد کلاه‌کج</div></div>
+  `;
+}
+/* ===== Delete lock (PIN) ===== */
+let _delCode = "";
+function updatePinStatus(){
+  const has = !!localStorage.getItem(ADMIN_PIN_HASH_KEY);
+  const el = document.getElementById("pinStatus");
+  if(!el) return;
+  el.textContent = has ? "وضعیت پسورد: تنظیم شده" : "وضعیت پسورد: تنظیم نشده";
+  el.className = has ? "pill ok" : "pill warn";
+}
+function updateDeleteLockUI(){
+  const el = document.getElementById("delLockStatus");
+  if(!el) return;
+  if(isDeleteUnlocked()){
+    const until = parseInt(localStorage.getItem(DELETE_UNLOCK_UNTIL_KEY) || "0", 10);
+    el.textContent = "قفل باز است تا: " + new Date(until).toLocaleTimeString('fa-IR');
+    el.className = "pill ok";
+  }else{
+    el.textContent = "قفل فعال است";
+    el.className = "pill warn";
+  }
+  // دکمه‌های حذف را فعال/غیرفعال کن
+  document.querySelectorAll("button[data-del-entry]").forEach(b=>{
+    b.disabled = !isDeleteUnlocked();
+    b.style.opacity = b.disabled ? "0.5" : "1";
+    b.style.cursor = b.disabled ? "not-allowed" : "pointer";
+  });
+}
+async function setOrChangePin(){
+  const p1 = document.getElementById("adminPinSet").value.trim();
+  const p2 = document.getElementById("adminPinSet2").value.trim();
+  if(!isSixDigitPin(p1) || !isSixDigitPin(p2)){
+    alert("پسورد باید دقیقا ۶ رقم و فقط عدد باشد.");
+    return;
+  }
+  if(p1 !== p2){
+    alert("پسورد و تکرار آن یکسان نیست.");
+    return;
+  }
+  const h = await sha256Hex(p1);
+  localStorage.setItem(ADMIN_PIN_HASH_KEY, h);
+  document.getElementById("adminPinSet").value="";
+  document.getElementById("adminPinSet2").value="";
+  updatePinStatus();
+  alert("پسورد مدیریت ذخیره شد. لطفا آن را در جای امن یادداشت کن (قابل بازیابی نیست).");
+}
+function genDeleteCode(){
+  _delCode = String(Math.floor(100000 + Math.random()*900000));
+  document.getElementById("delCodeShow").textContent = _delCode;
+}
+async function unlockDelete(){
+  const has = !!localStorage.getItem(ADMIN_PIN_HASH_KEY);
+  if(!has){
+    alert("ابتدا پسورد مدیریت را تنظیم کن.");
+    return;
+  }
+  const pin = document.getElementById("adminPinUnlock").value.trim();
+  if(!isSixDigitPin(pin)){ alert("پسورد باید ۶ رقم باشد."); return; }
+  const h = await sha256Hex(pin);
+  if(h !== localStorage.getItem(ADMIN_PIN_HASH_KEY)){
+    alert("پسورد اشتباه است.");
+    return;
+  }
+  if(!_delCode || _delCode==="—"){
+    alert("اول «ایجاد کد تایید» را بزن.");
+    return;
+  }
+  const codeIn = document.getElementById("delCodeInput").value.trim();
+  if(codeIn !== _delCode){
+    alert("کد تایید اشتباه است.");
+    return;
+  }
+  const until = Date.now() + 10*60*1000; // 10 minutes
+  localStorage.setItem(DELETE_UNLOCK_UNTIL_KEY, String(until));
+  document.getElementById("adminPinUnlock").value="";
+  document.getElementById("delCodeInput").value="";
+  _delCode="";
+  document.getElementById("delCodeShow").textContent="—";
+  updateDeleteLockUI();
+  alert("قفل حذف برای ۱۰ دقیقه باز شد.");
+}
+function lockNow(){
+  localStorage.removeItem(DELETE_UNLOCK_UNTIL_KEY);
+  updateDeleteLockUI();
+}
+function refreshEntryTable(){
+  const tbody = document.querySelector("#entryTable tbody");
+  if(!tbody) return;
+  const rigFilter = document.getElementById("delRigFilter").value;
+  const q = (document.getElementById("delSearch").value||"").trim().toLowerCase();
+  tbody.innerHTML="";
+  const entries = DB.entries || {};
+  const rows = Object.keys(entries).map(k=>entries[k]).filter(e=>{
+    if(rigFilter && rigFilter!=="ALL" && e.rig !== rigFilter) return false;
+    if(!q) return true;
+    const hay = `${e.rig} ${e.periodN} ${fmtJ(e.periodStartJ)} ${fmtJ(e.periodEndJ)} ${e.person} ${e.savedAt}`.toLowerCase();
+    return hay.includes(q);
+  }).sort((a,b)=> (b.savedAt||"").localeCompare(a.savedAt||""));
+  if(!rows.length){
+    const tr=document.createElement("tr");
+    tr.innerHTML = `<td colspan="6" class="small">رکوردی پیدا نشد.</td>`;
+    tbody.appendChild(tr);
+    updateDeleteLockUI();
+    return;
+  }
+  rows.slice(0,400).forEach(e=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML = `
+      <td>${escapeHTML(e.rig)}</td>
+      <td>${escapeHTML(String(e.periodN||"—"))}</td>
+      <td>${fmtJ(e.periodStartJ)} تا ${fmtJ(e.periodEndJ)}</td>
+      <td>${escapeHTML(e.person||"—")}</td>
+      <td>${escapeHTML(fmtFa(e.savedAt||"—"))}</td>
+      <td><button class="btn danger" data-del-entry="${escapeHTML(e.periodId)}" style="padding:6px 10px; font-size:12px;">حذف</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  tbody.querySelectorAll("button[data-del-entry]").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      if(!isDeleteUnlocked()){ alert("قفل حذف فعال است. ابتدا بازش کن."); return; }
+      const pid = b.dataset.delEntry;
+      const e = DB.entries[pid];
+      if(!e){ refreshEntryTable(); return; }
+      const msg = `این رکورد حذف شود؟\nدکل: ${e.rig}\nدوره: ${e.periodN}\nبازه: ${fmtJ(e.periodStartJ)} تا ${fmtJ(e.periodEndJ)}\nنفر: ${e.person}`;
+      if(!confirm(msg)) return;
+      delete DB.entries[pid];
+      saveDB(true,"حذف رکورد");
+      refreshEntryTable();
+    });
+  });
+  updateDeleteLockUI();
+}
+function exportJSON(){
+  const blob = new Blob([JSON.stringify(DB,null,2)], {type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`rig-hse-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+async function importJSON(){
+  const file=document.getElementById("importFile").files?.[0];
+  if(!file){ alert("فایل JSON را انتخاب کن."); return; }
+  const text=await file.text();
+  try{
+    const obj=JSON.parse(text);
+    if(!obj.meta || !obj.rigs){ throw new Error("ساختار فایل معتبر نیست."); }
+    DB=obj;
+    saveDB();
+    alert("Import انجام شد.");
+    location.reload();
+  }catch(e){
+    alert("Import ناموفق: "+e.message);
+  }
+}
+function wipeAll(){
+  if(!isDeleteUnlocked()){
+    alert("قفل حذف فعال است. برای «پاک کردن کل داده‌ها» ابتدا قفل را با پسورد باز کن.");
+    return;
+  }
+  if(!confirm("کل داده‌های برنامه پاک شود؟ این کار برگشت ندارد.")) return;
+  localStorage.removeItem(KEY);
+  DB=defaultDB();
+  saveDB(true,"پاکسازی کامل");
+  location.reload();
+}
+
+init();
+try{ refreshSnapshotUI(); }catch(e){}
+
+
+  // MutationObserver: auto-wrap newly inserted tables
+  const _tableObserver = new MutationObserver(muts=>{
+    muts.forEach(m=>{
+      m.addedNodes.forEach(n=>{
+        if(n.nodeType===1){
+          const tables = n.tagName==='TABLE' ? [n] : [...n.querySelectorAll('table')];
+          tables.forEach(t=>{
+            if(t.parentElement && !t.parentElement.classList.contains('table-wrap') && !t.closest('.print-area')){
+              const w=document.createElement('div'); w.className='table-wrap';
+              t.parentNode.insertBefore(w,t); w.appendChild(t);
+            }
+          });
+        }
+      });
+    });
+  });
+  _tableObserver.observe(document.getElementById('tabSchedule')||document.body,{childList:true,subtree:true});
+  _tableObserver.observe(document.getElementById('tabInc')||document.body,{childList:true,subtree:true});
+  _tableObserver.observe(document.getElementById('tabFollow')||document.body,{childList:true,subtree:true});
+  _tableObserver.observe(document.getElementById('tabLeave')||document.body,{childList:true,subtree:true});
+  _tableObserver.observe(document.getElementById('tabReport')||document.body,{childList:true,subtree:true});
+
+
+  // Auto-wrap tables for mobile scroll
+  function wrapTables(container){
+    (container||document).querySelectorAll('table:not(.no-wrap)').forEach(t=>{
+      if(t.parentElement && !t.parentElement.classList.contains('table-wrap')){
+        const w=document.createElement('div');
+        w.className='table-wrap';
+        t.parentNode.insertBefore(w,t);
+        w.appendChild(t);
+      }
+    });
+  }
+
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
